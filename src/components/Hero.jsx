@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Zap, ChevronRight } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import * as THREE from 'three';
 
 const Hero = ({ theme, scrollPercent, jumpTo }) => {

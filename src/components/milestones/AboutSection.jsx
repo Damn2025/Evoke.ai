@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import aboutImage from '../../assets/About.png';
 import evokeLogo from '../../assets/evoke.png';
 
-const AboutSection = ({ milestone, theme, scrollPercent }) => {
-  const gradientBg = "bg-gradient-to-br from-[#1dc393] via-[#27bce2] to-[#7fe7ce]";
+const AboutSection = ({ milestone, theme }) => {
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
   const isDark = theme === 'dark';
@@ -51,7 +50,7 @@ const AboutSection = ({ milestone, theme, scrollPercent }) => {
       {/* 3D Motion Section */}
       <div className="relative px-6 perspective-1000 pb-0 z-10">
         <div className="w-full mx-auto relative">
-          <ThreeDImageCard scrollPercent={scrollPercent} isDark={isDark} gradientBg={gradientBg} />
+          <ThreeDImageCard isDark={isDark} />
           
           {/* Black Gradient Light Effect Below Image - Only for Dark Mode */}
           {isDark && (
@@ -87,7 +86,7 @@ const AboutSection = ({ milestone, theme, scrollPercent }) => {
 };
 
 // Component that displays the static image
-const ThreeDImageCard = ({ scrollPercent, isDark, gradientBg }) => {
+const ThreeDImageCard = ({ isDark }) => {
   return (
     <div className="relative w-full group">
       {/* Static Image Container */}

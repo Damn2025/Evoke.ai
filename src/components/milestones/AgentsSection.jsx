@@ -11,9 +11,8 @@ import AgentVideoPlayer from '../AgentVideoPlayer';
  * Simple display of all agents with gradient styling
  * @param {Object} milestone - Milestone data object
  * @param {string} theme - Current theme ('dark' or 'light')
- * @param {number} scrollPercent - Global scroll percentage (0-1)
  */
-const AgentsSection = ({ milestone, theme, scrollPercent }) => {
+const AgentsSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";

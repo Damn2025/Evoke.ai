@@ -10,9 +10,9 @@ const MilestoneOverlay = ({ scrollPercent, theme }) => {
   const renderSection = (milestone) => {
     switch (milestone.id) {
       case 'about':
-        return <AboutSection milestone={milestone} theme={theme} scrollPercent={scrollPercent} />;
+        return <AboutSection milestone={milestone} theme={theme} />;
       case 'agents':
-        return <AgentsSection milestone={milestone} theme={theme} scrollPercent={scrollPercent} />;
+        return <AgentsSection milestone={milestone} theme={theme} />;
        case 'features':
         return <FeaturesSection milestone={milestone} theme={theme} />;
       case 'social':
