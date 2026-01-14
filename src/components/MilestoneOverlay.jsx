@@ -1,7 +1,7 @@
 import { MILESTONES } from '../data/constants';
 import AboutSection from './milestones/AboutSection';
-import FeaturesSection from './milestones/FeaturesSection';
 import AgentsSection from './milestones/AgentsSection';
+import AutomationSection from './milestones/AutomationSection';
 import SocialSection from './milestones/SocialSection';
 import ContactSection from './milestones/ContactSection';
 import FAQSection from './milestones/FAQSection';
@@ -13,8 +13,8 @@ const MilestoneOverlay = ({ scrollPercent, theme }) => {
         return <AboutSection milestone={milestone} theme={theme} />;
       case 'agents':
         return <AgentsSection milestone={milestone} theme={theme} />;
-       case 'features':
-        return <FeaturesSection milestone={milestone} theme={theme} />;
+      case 'automation':
+        return <AutomationSection milestone={milestone} theme={theme} />;
       case 'social':
         return <SocialSection milestone={milestone} theme={theme} />;
       case 'contact':

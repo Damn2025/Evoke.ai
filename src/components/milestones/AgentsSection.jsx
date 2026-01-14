@@ -130,15 +130,15 @@ const AgentsSection = ({ milestone, theme }) => {
 
                   {/* Content Section */}
                   <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 text-center">
-                    {/* Agent Name */}
-                    <h3
-                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
-                      style={{
-                        color: agentColor.textColor
-                      }}
-                    >
-                      {agent.name}
-                    </h3>
+                  {/* Agent Name */}
+                  <h3
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
+                    style={{
+                      color: agentColor.textColor
+                    }}
+                  >
+                    {agent.name}
+                  </h3>
 
                   {/* Agent Role */}
                   <p
@@ -150,16 +150,16 @@ const AgentsSection = ({ milestone, theme }) => {
                     {agent.role}
                   </p>
 
-                    {/* Agent Description */}
-                    <p 
-                      className="text-sm sm:text-base lg:text-lg leading-relaxed"
-                      style={{
-                        color: agentColor.textColor,
-                        opacity: isDark ? 0.9 : 0.7
-                      }}
-                    >
-                      {agent.desc}
-                    </p>
+                  {/* Agent Description */}
+                  <p 
+                    className="text-sm sm:text-base lg:text-lg leading-relaxed"
+                    style={{
+                      color: agentColor.textColor,
+                      opacity: isDark ? 0.9 : 0.7
+                    }}
+                  >
+                    {agent.desc}
+                  </p>
                   </div>
                 </div>
               </div>

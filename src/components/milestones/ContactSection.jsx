@@ -250,7 +250,7 @@ const ContactSection = ({ milestone, theme }) => {
             {milestone.title.split(' ').map((word, index) => {
               if (index === 0) {
                 return (
-                  <span key={index} className={textGradient}>
+                  <span key={index} className="text-white">
                     {word}
                   </span>
                 );
@@ -263,31 +263,9 @@ const ContactSection = ({ milestone, theme }) => {
           </p>
         </div>
 
-        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Info Side */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-8 p-6 lg:p-0">
-            <div className="space-y-4">
-              {[
-                { icon: Mail, label: 'Email us', val: 'hello@evoke-ai.com', color: '#0eaac8' },
-                { icon: Phone, label: 'Call us', val: '+1 (555) 012-3456', color: '#1dc393' },
-                { icon: MapPin, label: 'Visit us', val: 'Palo Alto, California', color: '#27bce2' }
-              ].map((item, idx) => (
-                <div key={idx} className={`flex items-center space-x-4 p-4 rounded-2xl   transition-colors cursor-pointer group `}>
-                  <div className={`p-3 rounded-xl ${isDark ? 'bg-white/5' : 'bg-slate-100'}  transition-transform shadow-sm`} style={{ color: item.color }}>
-                    <item.icon size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">{item.label}</p>
-                    <p className={`text-md font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.val}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Form Side */}
-          <div className="lg:col-span-7 perspective-1000">
+        <div className="w-full flex items-center justify-center">
+          {/* Form - Centered */}
+          <div className="w-full max-w-2xl perspective-1000">
             <div className={`${isDark ? 'bg-[#0a0a0a]/80' : 'bg-white/70'} backdrop-blur-2xl p-8 lg:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border ${isDark ? 'border-white/10' : 'border-slate-200'} relative overflow-hidden transform-gpu transition-all hover:rotate-x-1 hover:rotate-y-1`}>
               
               {submitted && (
