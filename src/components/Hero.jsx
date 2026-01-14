@@ -418,9 +418,7 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
             <button className="hero-btn hero-btn-primary" onClick={() => jumpTo(0.85)}>
               Get Started <Zap size={18} />
             </button>
-            <button className="hero-btn hero-btn-secondary">
-              View Specs
-            </button>
+            
           </motion.div>
         </section>
       </main>
