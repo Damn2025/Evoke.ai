@@ -12,7 +12,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG } from '../../config/emailjs.config.js';
+import { EMAILJS_CONFIG } from '../../config/emailjs.config';
 
 const ContactSection = ({ milestone, theme }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

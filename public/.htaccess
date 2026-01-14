@@ -1,0 +1,21 @@
+# MIME Types for JavaScript Modules
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType application/javascript .jsx
+  AddType application/javascript .mjs
+  AddType text/css .css
+  AddType application/json .json
+</IfModule>
+
+# Enable CORS for module scripts
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, OPTIONS"
+</IfModule>
+
+# Enable compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/json
+</IfModule>
