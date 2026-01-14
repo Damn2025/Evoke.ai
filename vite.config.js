@@ -6,15 +6,21 @@ export default defineConfig({
   plugins: [react()],
   // Explicitly define env prefix to ensure .env variables are loaded
   envPrefix: 'VITE_',
+  base: './', // Use relative paths for deployment
   build: {
     // Ensure proper MIME types for all assets
     assetsInlineLimit: 4096,
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
     rollupOptions: {
       output: {
         // Ensure proper file extensions
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
+        assetFileNames: 'assets/[name].[hash].[ext]',
+        // Ensure proper module format
+        format: 'es'
       }
     }
   },
