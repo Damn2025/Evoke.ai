@@ -4,6 +4,7 @@ export const MILESTONES = [
   { t: 0.15, id: "about", label: "About", title: "About Us", category: "Evolution" },
   { t: 0.55, id: "agents", label: "Agents", title: "AI Agents", category: "Autonomous Units" },
   { t: 0.65, id: "automation", label: "Automation", title: "Build Once. Automate Everything.", category: "Enterprise Automation" },
+  { t: 0.70, id: "partners", label: "Partners", title: "Our Partners", category: "Trusted By" },
   { t: 0.75, id: "social", label: "Social", title: "Partner Echoes", category: "Social Proof" },
   { t: 0.85, id: "contact", label: "Contact", title: "Get In Touch", category: "AI Driven Future" },
   { t: 0.95, id: "faq", label: "FAQ", title: "All You Need to Know", category: "Knowledge Base" }

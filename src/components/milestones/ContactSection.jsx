@@ -255,6 +255,17 @@ const ContactSection = ({ milestone, theme }) => {
                   </span>
                 );
               }
+              if (index === 3) {
+                // Last word "Touch" with gradient
+                return (
+                  <span 
+                    key={index}
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
+                  >
+                    {' '}{word}
+                  </span>
+                );
+              }
               return <span key={index}> {word}</span>;
             })}
           </h2>

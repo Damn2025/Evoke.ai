@@ -33,11 +33,11 @@ const AboutSection = ({ milestone, theme }) => {
       <h2 className={`text-6xl md:text-8xl font-black mb-16 uppercase tracking-tighter italic ${isDark ? 'text-white' : 'text-black'}`}>
         {milestone.title.split(' ').map((word, index) => {
           if (index === 1) {
-            // Second word with gradient
+            // Second word "Us" with gradient
             return (
               <span 
                 key={index}
-                className="bg-gradient-to-r from-[#1dc393] via-[#27bce2] to-[#7fe7ce] bg-clip-text text-transparent pr-5"
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
               >
                 {index > 0 ? ' ' : ''}{word}
               </span>

@@ -136,7 +136,20 @@ const FAQSection = ({ milestone, theme }) => {
             <div className="absolute inset-0 rounded-full border-2 border-[#00d2ff]/40 group-hover:border-[#27bce2]/60 transition-all duration-300 shadow-lg shadow-[#00d2ff]/20"></div>
           </div>
           <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none italic mb-4 sm:mb-6 ${isDark ? 'text-white' : 'text-black'}`}>
-            {milestone.title}
+            {milestone.title.split(' ').map((word, index) => {
+              if (index === 4) {
+                // Last word "Know" with gradient
+                return (
+                  <span 
+                    key={index}
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
+                  >
+                    {index > 0 ? ' ' : ''}{word}
+                  </span>
+                );
+              }
+              return <span key={index}>{index > 0 ? ' ' : ''}{word}</span>;
+            })}
           </h2>
           
           {/* Search Bar */}

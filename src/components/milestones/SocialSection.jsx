@@ -10,7 +10,22 @@ const SocialSection = ({ milestone, theme }) => {
     <div className="px-3 sm:px-6">
       <div className="text-center mb-10 sm:mb-16">
         <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[9px] sm:text-[10px] font-black uppercase tracking-widest mb-6 sm:mb-8">{milestone.category}</span>
-        <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none italic ${theme === 'dark' ? 'text-white' : 'text-black'}`}>{milestone.title}</h2>
+        <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-none italic ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          {milestone.title.split(' ').map((word, index) => {
+            if (index === 1) {
+              // Second word "Echoes" with gradient
+              return (
+                <span 
+                  key={index}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
+                >
+                  {index > 0 ? ' ' : ''}{word}
+                </span>
+              );
+            }
+            return <span key={index}>{index > 0 ? ' ' : ''}{word}</span>;
+          })}
+        </h2>
       </div>
       <div className="space-y-4 sm:space-y-8">
         <div className="marquee-container">

@@ -38,7 +38,8 @@ const AutomationSection = ({ milestone, theme }) => {
           </div>
           
           <h2 className={`text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 lg:mb-8 uppercase tracking-tighter italic ${isDark ? 'text-white' : 'text-black'}`}>
-            Build Once.<br/>Automate Everything.
+            Build Once.<br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]">Automate</span> Everything.
           </h2>
           
           <p className={`text-base sm:text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>
