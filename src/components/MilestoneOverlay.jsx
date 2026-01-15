@@ -7,7 +7,7 @@ import SocialSection from './milestones/SocialSection';
 import ContactSection from './milestones/ContactSection';
 import FAQSection from './milestones/FAQSection';
 
-const MilestoneOverlay = ({ scrollPercent, theme }) => {
+const MilestoneOverlay = ({ scrollPercent, theme, setShowPrivacyPolicy }) => {
   const renderSection = (milestone) => {
     switch (milestone.id) {
       case 'about':
@@ -23,7 +23,7 @@ const MilestoneOverlay = ({ scrollPercent, theme }) => {
       case 'contact':
         return <ContactSection milestone={milestone} theme={theme} />;
       case 'faq':
-        return <FAQSection milestone={milestone} theme={theme} />;
+        return <FAQSection milestone={milestone} theme={theme} setShowPrivacyPolicy={setShowPrivacyPolicy} />;
       default:
         return null;
     }

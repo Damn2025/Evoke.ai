@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import evokeLogo from '../../assets/evoke.png';
 import astroremedisLogo from '../../assets/Astroremedis.png';
 import meddevicesLogo from '../../assets/meddevices.png';
-import damnartLogo from '../../assets/Damnart.png';
-import eurotechLogo from '../../assets/Eurotech.png';
+import eduonixLogo from '../../assets/eduonix.png';
 import grnataLogo from '../../assets/Grnata.png';
 import itcLogo from '../../assets/itc.png';
 import sipconLogo from '../../assets/Sipcon.jpg';
 import sustainableLogo from '../../assets/Sustainable.jpg';
+import eurocert from '../../assets/eurocert.webp';
 
 const PartnersSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
@@ -25,19 +25,20 @@ const PartnersSection = ({ milestone, theme }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
+//   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
+const brandGradient = "bg-white";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
 
   // Partners Data with 8 companies positioned in a radial orbit
   const partners = [
     { name: 'Astroremedis', logo: astroremedisLogo, x: 25, y: 20, color: colors.primary, delay: 0.2 },
     { name: 'Med Devices', logo: meddevicesLogo, x: 50, y: 12, color: colors.secondary, delay: 0.3 },
-    { name: 'DamnArt', logo: damnartLogo, x: 75, y: 20, color: colors.accent1, delay: 0.4 },
-    { name: 'Eurotech', logo: eurotechLogo, x: 88, y: 50, color: colors.accent2, delay: 0.5 },
+    { name: 'Eduonix', logo: eduonixLogo, x: 75, y: 20, color: colors.accent1, delay: 0.4 },
+    { name: 'Eurocert', logo: eurocert, x: 88, y: 50, color: colors.accent2, delay: 0.5 },
     { name: 'Grnata', logo: grnataLogo, x: 75, y: 80, color: colors.primary, delay: 0.6 },
     { name: 'ITC India', logo: itcLogo, x: 50, y: 88, color: colors.secondary, delay: 0.7 },
     { name: 'Sipcon', logo: sipconLogo, x: 25, y: 80, color: colors.accent1, delay: 0.8 },
-    { name: 'Sustainable', logo: sustainableLogo, x: 12, y: 50, color: colors.accent2, delay: 0.9 },
+    { name: 'Sustainable Futures Trainings', logo: sustainableLogo, x: 12, y: 50, color: colors.accent2, delay: 0.9 },
   ];
 
   // Function to create a curved path from center (50, 50) to target
@@ -97,14 +98,14 @@ const PartnersSection = ({ milestone, theme }) => {
                 <div 
                   className={`relative w-full p-3 sm:p-4 rounded-xl sm:rounded-[1.5rem] shadow-lg border transition-all duration-500 flex flex-col items-center justify-center
                     ${isDark 
-                      ? 'bg-zinc-900/90 border-zinc-800 group-active:border-white/50 backdrop-blur-md' 
+                      ? 'bg-white border-zinc-800 group-active:border-white/50 backdrop-blur-md' 
                       : 'bg-white border-slate-100 group-active:border-black/20'
                     }
                     group-active:scale-95`}
                 >
                   <div 
                     className="w-full h-16 sm:h-20 rounded-lg sm:rounded-xl mb-2 transition-all duration-300 shadow-inner flex items-center justify-center p-2" 
-                    style={{ backgroundColor: `${partner.color}15` }}
+                    style={{ backgroundColor: 'white' }}
                   >
                     <img 
                       src={partner.logo} 
@@ -212,7 +213,7 @@ const PartnersSection = ({ milestone, theme }) => {
               >
                 <div 
                   className="w-full h-20 md:h-28 rounded-xl mb-2 transition-all duration-700 group-hover:rotate-[360deg] shadow-inner flex items-center justify-center p-2" 
-                  style={{ backgroundColor: `${partner.color}15` }}
+                  style={{ backgroundColor: 'white' }}
                 >
                   <img 
                     src={partner.logo} 
@@ -226,8 +227,7 @@ const PartnersSection = ({ milestone, theme }) => {
                   {partner.name}
                 </div>
                 
-                {/* Connector Dot */}
-                <div className="absolute -bottom-1 w-2 h-2 rounded-full shadow-lg" style={{ backgroundColor: partner.color }}></div>
+                
               </div>
 
               {/* Pulsing Aura */}

@@ -25,6 +25,14 @@ const AgentsSection = ({ milestone, theme }) => {
     'CIPHER': cipherVideo
   };
 
+  // Map agent links
+  const agentLinks = {
+    'AEON': 'http://evokeai.in/aeon/',
+    'NOVA': 'https://nova-message-crafter.netlify.app/',
+    'CIPHER': 'https://www.cyber.evokeai.info/',
+    'ORION': null // No link provided
+  };
+
   // Color configuration for each agent
   const agentColors = [
     { 
@@ -97,14 +105,14 @@ const AgentsSection = ({ milestone, theme }) => {
             const agentColor = agentColors[index];
             const agentVideo = agentVideos[agent.name];
 
-            return (
+            const agentLink = agentLinks[agent.name];
+            const CardContent = (
               <div
-                key={index}
                 className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 ${
                   isDark 
                     ? 'bg-black/50 border-white/10 hover:border-emerald-500/50' 
                     : 'bg-white/80 border-black/5 shadow-2xl shadow-black/5'
-                }`}
+                } ${agentLink ? 'cursor-pointer' : ''}`}
                 style={{
                   background: isDark
                     ? `linear-gradient(135deg, ${agentColor.primary}15, ${agentColor.primary}10)`
@@ -175,6 +183,22 @@ const AgentsSection = ({ milestone, theme }) => {
                   </p>
                   </div>
                 </div>
+              </div>
+            );
+
+            return agentLink ? (
+              <a
+                key={index}
+                href={agentLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                {CardContent}
+              </a>
+            ) : (
+              <div key={index}>
+                {CardContent}
               </div>
             );
           })}

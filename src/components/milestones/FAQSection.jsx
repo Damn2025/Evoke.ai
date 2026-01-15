@@ -75,7 +75,7 @@ const FAQItem = ({ item, isOpen, onClick, theme }) => {
   );
 };
 
-const FAQSection = ({ milestone, theme }) => {
+const FAQSection = ({ milestone, theme, setShowPrivacyPolicy }) => {
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
   
@@ -241,7 +241,7 @@ const FAQSection = ({ milestone, theme }) => {
 
       {/* Footer Section - Separate Fixed Section */}
       <div className="relative z-50 mt-20">
-        <Footer theme={theme} />
+        <Footer theme={theme} onPrivacyClick={() => setShowPrivacyPolicy(true)} />
       </div>
     </>
   );
