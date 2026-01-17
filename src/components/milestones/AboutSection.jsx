@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import aboutImage from '../../assets/About.png';
+import aboutImage from '../../assets/Aboutus.png';
 import evokeLogo from '../../assets/evoke.png';
 import chatbotBuilderImage from '../../assets/Your ChatBot Builder (2).png';
 

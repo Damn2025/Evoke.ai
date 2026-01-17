@@ -60,7 +60,7 @@ export const TESTIMONIALS = [
 ];
 
 export const AGENTS = [
-  { name: "NOVA", role: "Email Marketer", desc: "automates email marketing with AI-driven personalization, timing, and performance optimization.", icon: Mail },
+  { name: "NOVA", role: "Email Marketer", desc: "Automates email marketing with AI-driven personalization, timing, and performance optimization.", icon: Mail },
   { name: "AEON", role: "ChatBot Builder", desc: "Conversational architect for 24/7 engagement and response trees.", icon: MessageSquare },
   { name: "ORION", role: "Course Creator", desc: "Synthesizes knowledge bases into structured educational modules.", icon: BookOpen },
   { name: "CIPHER", role: "Cyber Security", desc: "Scans web and mobile APK to identify vulnerabilities and security threats.", icon: ShieldCheck }

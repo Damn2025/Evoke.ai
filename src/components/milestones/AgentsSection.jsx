@@ -4,6 +4,11 @@ import novaVideo from '../../assets/NOVA_V.mp4';
 import orionVideo from '../../assets/ORION_V.mp4';
 import cipherVideo from '../../assets/CIPHER_VI.mp4';
 import AgentVideoPlayer from '../AgentVideoPlayer';
+import image1 from '../../assets/images/image1.png';
+import image2 from '../../assets/images/image2.png';
+import image3 from '../../assets/images/image3.png';
+import image4 from '../../assets/images/image4.jpeg';
+import image5 from '../../assets/images/image5.jpg';
 
 
 /**
@@ -16,6 +21,9 @@ const AgentsSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
+  
+  // Images from images folder
+  const images = [image1, image2, image3, image4, image5];
   
   // Map agent videos
   const agentVideos = {
@@ -202,6 +210,113 @@ const AgentsSection = ({ milestone, theme }) => {
               </div>
             );
           })}
+        </div>
+
+        {/* Images Section - Bottom with Alternating Layout */}
+        <div className="mt-16 sm:mt-20 lg:mt-24 w-full  mx-auto">
+          <div className="flex flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-24">
+            {images.map((img, index) => {
+              const isLeft = index % 2 === 0;
+              
+              return (
+                <div
+                  key={index}
+                  className={`flex flex-col ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-20 sm:gap-8 md:gap-12`}
+                >
+                  {/* Image Section */}
+                  <div className="relative overflow-hidden rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl w-full md:w-1/2 lg:w-3/5">
+                    <img
+                      src={img}
+                      alt={`Gallery ${index + 1}`}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  
+                  {/* Text Section */}
+                  <div className={`w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center text-left`}>
+                    <h3 className={`text-6xl sm:text-3xl md:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
+                      {index === 0 && 'Innovative Solutions'}
+                      {index === 1 && (
+                        <>
+                          One Platform<br />
+                          Multiple Ventures
+                        </>
+                      )}
+                      {index === 2 && 'Enterprise Excellence'}
+                      {index === 3 && (
+                        <>
+                       Grow Revenue with an <br/> AI-powered Email Marketer
+            </>)}
+                      {index === 4 &&  (
+                        <>
+                          Convert and sell with a <br />
+                          data-driven Al chatbot
+                        </> 
+            )}
+                    </h3>
+                    {index === 1 ? (
+                      <div className={`space-y-4 ${isDark ? 'text-white/80' : 'text-black/70'}`}>
+                        <p className={`text-sm sm:text-base md:text-lg leading-relaxed mb-6 ${isDark ? 'text-white/90' : 'text-black/80'}`}>
+                          Manage distinct brands or projects without the chaos.
+                        </p>
+                        <div className="space-y-4 max-w-xl">
+                          <div>
+                            <h4 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
+                              Custom Business Profiles (Up to 4)
+                            </h4>
+                            <p className="text-sm sm:text-base leading-relaxed" style={{ fontFamily: '"GT Walsheim Pro", "Inter", sans-serif' }}>
+                              Don't mix your real estate leads with your e-commerce support. Create up to 5 dedicated workspaces, each staffed with AI employees trained for that specific business model.
+                            </p>
+                          </div>
+                          <div>
+                            <h4 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
+                              Seamless Team Collaboration
+                            </h4>
+                            <p className="text-sm sm:text-base leading-relaxed" style={{ fontFamily: '"GT Walsheim Pro", "Inter", sans-serif' }}>
+                              Bring your human team into the loop. Share workspace access in real-time, ensuring everyone—from stakeholders to interns—has visibility into your AI's performance and insights.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className={`text-sm sm:text-base font-semibold md:text-lg leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>
+                        {index === 0 && 'Discover how EVOKE AI revolutionizes business operations with intelligent automation and seamless integration across all platforms.'}
+                        {index === 2 && 'Join leading enterprises that trust EVOKE AI to deliver exceptional results and transform their digital infrastructure.'}
+                        {index === 3 && 'Connect, automate, and sell your vision to the world . Craft Perfect Campaign  Messages in SecondsExperience the email and automation solution that takes your business to the next level'}
+                        {index === 4 && 'AEON is a single platform for creating and launching chatbots of any complexity without programming'}
+                      </p>
+                    )}
+                    {/* GET NOVA Button for 3rd image */}
+                    {index === 3 && (
+                      <div className="mt-6">
+                        <a
+                          href="https://nova-message-crafter.netlify.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block px-6 py-2 bg-teal-300 hover:bg-yellow-400 text-black font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                        >
+                          GET NOVA
+                        </a>
+                      </div>
+                    )}
+                    {/* GET AEON Button for last image */}
+                    {index === 4 && (
+                        <div className="mt-6">
+                          <a
+                            href="http://evokeai.in/aeon/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-6 py-2 bg-yellow-300 hover:bg-yellow-350 text-black font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                          >
+                            GET AEON
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
