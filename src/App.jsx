@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MilestoneOverlay from './components/MilestoneOverlay';
 import PrivacyPolicy from './components/PrivacyPolicy';
-import Footer from './components/Footer';
+
 import './App.css';
 
 export default function App() {

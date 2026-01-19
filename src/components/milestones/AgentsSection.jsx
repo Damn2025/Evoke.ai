@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import { AGENTS } from '../../data/constants';
 import aeonVideo from '../../assets/AEON_V.mp4';
 import novaVideo from '../../assets/NOVA_V.mp4';
 import orionVideo from '../../assets/ORION_V.mp4';
 import cipherVideo from '../../assets/CIPHER_VI.mp4';
 import AgentVideoPlayer from '../AgentVideoPlayer';
-import image1 from '../../assets/images/image1.png';
-import image2 from '../../assets/images/image2.png';
-import image3 from '../../assets/images/image3.png';
 import image4 from '../../assets/images/image4.jpeg';
 import image5 from '../../assets/images/image5.jpg';
+import image6 from '../../assets/images/image6.jpg';
+import image7 from '../../assets/images/image7.png';
 
 
 /**
@@ -19,11 +19,12 @@ import image5 from '../../assets/images/image5.jpg';
  */
 const AgentsSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
+  const [isOrionModalOpen, setIsOrionModalOpen] = useState(false);
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
   
   // Images from images folder
-  const images = [image1, image2, image3, image4, image5];
+  const images = [image4, image5, image6, image7];
   
   // Map agent videos
   const agentVideos = {
@@ -120,7 +121,7 @@ const AgentsSection = ({ milestone, theme }) => {
                   isDark 
                     ? 'bg-black/50 border-white/10 hover:border-emerald-500/50' 
                     : 'bg-white/80 border-black/5 shadow-2xl shadow-black/5'
-                } ${agentLink ? 'cursor-pointer' : ''}`}
+                } ${agentLink || agent.name === 'ORION' ? 'cursor-pointer' : ''}`}
                 style={{
                   background: isDark
                     ? `linear-gradient(135deg, ${agentColor.primary}15, ${agentColor.primary}10)`
@@ -204,6 +205,14 @@ const AgentsSection = ({ milestone, theme }) => {
               >
                 {CardContent}
               </a>
+            ) : agent.name === 'ORION' ? (
+              <div 
+                key={index}
+                onClick={() => setIsOrionModalOpen(true)}
+                className="cursor-pointer"
+              >
+                {CardContent}
+              </div>
             ) : (
               <div key={index}>
                 {CardContent}
@@ -235,72 +244,51 @@ const AgentsSection = ({ milestone, theme }) => {
                   {/* Text Section */}
                   <div className={`w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center text-left`}>
                     <h3 className={`text-6xl sm:text-3xl md:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
-                      {index === 0 && 'Innovative Solutions'}
-                      {index === 1 && (
-                        <>
-                          One Platform<br />
-                          Multiple Ventures
-                        </>
-                      )}
-                      {index === 2 && 'Enterprise Excellence'}
-                      {index === 3 && (
+                      {index === 0 && (
                         <>
                        Grow Revenue with an <br/> AI-powered Email Marketer
             </>)}
-                      {index === 4 &&  (
+                      {index === 1 &&  (
                         <>
                           Convert and sell with a <br />
                           data-driven Al chatbot
                         </> 
             )}
+                      {index === 2 && (
+                        <>
+                          Generate interactive <br />
+                          e-learning content in minutes
+                        </> 
+            )}
+                      {index === 3 && (
+                        <>
+                          Discover the most <br />
+                          dangerous threats.
+                        </> 
+            )}
                     </h3>
-                    {index === 1 ? (
-                      <div className={`space-y-4 ${isDark ? 'text-white/80' : 'text-black/70'}`}>
-                        <p className={`text-sm sm:text-base md:text-lg leading-relaxed mb-6 ${isDark ? 'text-white/90' : 'text-black/80'}`}>
-                          Manage distinct brands or projects without the chaos.
-                        </p>
-                        <div className="space-y-4 max-w-xl">
-                          <div>
-                            <h4 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
-                              Custom Business Profiles (Up to 4)
-                            </h4>
-                            <p className="text-sm sm:text-base leading-relaxed" style={{ fontFamily: '"GT Walsheim Pro", "Inter", sans-serif' }}>
-                              Don't mix your real estate leads with your e-commerce support. Create up to 5 dedicated workspaces, each staffed with AI employees trained for that specific business model.
-                            </p>
-                          </div>
-                          <div>
-                            <h4 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
-                              Seamless Team Collaboration
-                            </h4>
-                            <p className="text-sm sm:text-base leading-relaxed" style={{ fontFamily: '"GT Walsheim Pro", "Inter", sans-serif' }}>
-                              Bring your human team into the loop. Share workspace access in real-time, ensuring everyone—from stakeholders to interns—has visibility into your AI's performance and insights.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className={`text-sm sm:text-base font-semibold md:text-lg leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>
-                        {index === 0 && 'Discover how EVOKE AI revolutionizes business operations with intelligent automation and seamless integration across all platforms.'}
-                        {index === 2 && 'Join leading enterprises that trust EVOKE AI to deliver exceptional results and transform their digital infrastructure.'}
-                        {index === 3 && 'Connect, automate, and sell your vision to the world . Craft Perfect Campaign  Messages in SecondsExperience the email and automation solution that takes your business to the next level'}
-                        {index === 4 && 'AEON is a single platform for creating and launching chatbots of any complexity without programming'}
-                      </p>
-                    )}
-                    {/* GET NOVA Button for 3rd image */}
-                    {index === 3 && (
+                    
+                    <p className={`text-sm sm:text-base font-semibold md:text-lg leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>
+                      {index === 0 && 'Connect, automate, and sell your vision to the world . Craft Perfect Campaign  Messages in SecondsExperience the email and automation solution that takes your business to the next level'}
+                      {index === 1 && 'AEON is a single platform for creating and launching chatbots of any complexity without programming'}
+                      {index === 2 && 'Create engaging and interactive e-learning content quickly and efficiently with AI-powered tools that transform your educational materials into dynamic learning experiences.'}
+                      {index === 3 && 'CIPHER scans web and mobile applications to identify vulnerabilities and security threats, helping teams prioritize real risks and strengthen their cybersecurity posture.'}
+                    </p>
+                    {/* GET NOVA Button for first image */}
+                    {index === 0 && (
                       <div className="mt-6">
                         <a
                           href="https://nova-message-crafter.netlify.app/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block px-6 py-2 bg-teal-300 hover:bg-yellow-400 text-black font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                          className="inline-block px-6 py-2 bg-teal-300 hover:bg-teal-400 text-black font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
                         >
                           GET NOVA
                         </a>
                       </div>
                     )}
                     {/* GET AEON Button for last image */}
-                    {index === 4 && (
+                    {index === 1 && (
                         <div className="mt-6">
                           <a
                             href="http://evokeai.in/aeon/"
@@ -312,6 +300,30 @@ const AgentsSection = ({ milestone, theme }) => {
                           </a>
                         </div>
                       )}
+                    {/* GET ORION Button for image6 */}
+                    {index === 2 && (
+                      <div className="mt-6">
+                        <button
+                          onClick={() => setIsOrionModalOpen(true)}
+                          className="inline-block px-6 py-2 bg-[#7EC650] hover:bg-[#6db340] text-black font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl cursor-pointer"
+                        >
+                          GET ORION
+                        </button>
+                      </div>
+                    )}
+                    {/* GET CIPHER Button for image7 */}
+                    {index === 3 && (
+                      <div className="mt-6">
+                        <a
+                          href="https://www.cyber.evokeai.info/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block px-6 py-2 bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                        >
+                          GET CIPHER
+                        </a>
+                      </div>
+                    )}
                     </div>
                 </div>
               );
@@ -326,7 +338,145 @@ const AgentsSection = ({ milestone, theme }) => {
           0% { background-position: -200% center; }
           100% { background-position: 200% center; }
         }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes modalSlideIn {
+          from { 
+            opacity: 0;
+            transform: scale(0.7) translateY(-50px);
+          }
+          to { 
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes bounceIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.3);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+          70% {
+            transform: scale(0.9);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        .animate-modalSlideIn {
+          animation: modalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .animate-bounceIn {
+          animation: bounceIn 0.8s ease-out;
+        }
+        .animate-fadeInUp {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .animate-spin-slow {
+          animation: spin-slow 3s linear infinite;
+        }
+        .delay-200 {
+          animation-delay: 0.2s;
+          opacity: 0;
+        }
+        .delay-300 {
+          animation-delay: 0.3s;
+          opacity: 0;
+        }
       `}</style>
+
+      {/* ORION Modal */}
+      {isOrionModalOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setIsOrionModalOpen(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fadeIn"></div>
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative z-10 w-full max-w-2xl rounded-3xl shadow-2xl transform transition-all duration-500 ease-out animate-modalSlideIn ${
+              isDark ? 'bg-gray-900' : 'bg-white'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Animated Border Glow */}
+            <div className={`absolute inset-0 rounded-3xl pointer-events-none ${
+              isDark ? 'bg-gradient-to-r from-[#7EC650]/20 via-[#7EC650]/10 to-[#7EC650]/20' : 'bg-gradient-to-r from-[#7EC650]/10 via-[#7EC650]/5 to-[#7EC650]/10'
+            } animate-pulse`}></div>
+            
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOrionModalOpen(false);
+              }}
+              className={`absolute top-6 right-6 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 cursor-pointer ${
+                isDark ? 'hover:bg-gray-800 text-white bg-gray-800/50' : 'hover:bg-gray-100 text-gray-600 bg-white/50'
+              }`}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Body */}
+            <div className="relative p-10 sm:p-16 text-center">
+              <div className="mb-8 animate-bounceIn">
+                <div className={`inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-6 animate-pulse ${
+                  isDark ? 'bg-[#7EC650]/20' : 'bg-[#7EC650]/10'
+                }`}>
+                  <svg className="w-12 h-12 sm:w-14 sm:h-14 text-[#7EC650] animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-6 animate-fadeInUp ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+                Coming Soon
+              </h2>
+              
+              <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed mb-8 animate-fadeInUp delay-200 ${
+                isDark ? 'text-white/70' : 'text-gray-600'
+              }`}>
+                ORION is currently under development. We're working hard to bring you an amazing e-learning experience. Stay tuned!
+              </p>
+
+              {/* Animated Loading Dots */}
+              <div className="flex justify-center gap-2 animate-fadeInUp delay-300">
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

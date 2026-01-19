@@ -29,7 +29,7 @@ const PartnersSection = ({ milestone, theme }) => {
 const brandGradient = "bg-white";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
 
-  // Partners Data with 8 companies positioned in a radial orbit
+  // Clients Data with 8 companies positioned in a radial orbit
   const partners = [
     { name: 'Astroremedis', logo: astroremedisLogo, x: 25, y: 20, color: colors.primary, delay: 0.2 },
     { name: 'Med Devices', logo: meddevicesLogo, x: 50, y: 12, color: colors.secondary, delay: 0.3 },
@@ -94,7 +94,7 @@ const brandGradient = "bg-white";
                   ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`}
                 style={{ transitionDelay: `${partner.delay * 0.5}s` }}
               >
-                {/* Partner Card */}
+                {/* Client Card */}
                 <div 
                   className={`relative w-full p-3 sm:p-4 rounded-xl sm:rounded-[1.5rem] shadow-lg border transition-all duration-500 flex flex-col items-center justify-center
                     ${isDark 
@@ -114,7 +114,7 @@ const brandGradient = "bg-white";
                     />
                   </div>
                   
-                  {/* Partner Name */}
+                  {/* Client Name */}
                   <div className={`text-[8px] sm:text-[9px] font-black tracking-[0.1em] uppercase text-center ${isDark ? 'text-white/80' : 'text-black/80'}`}>
                     {partner.name}
                   </div>
@@ -189,7 +189,7 @@ const brandGradient = "bg-white";
             </div>
           </div>
 
-          {/* Partner Orbit Nodes (8 Total) */}
+          {/* Client Orbit Nodes (8 Total) */}
           {partners.map((partner, i) => (
             <div
               key={i}

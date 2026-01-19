@@ -1,11 +1,11 @@
 import { Mail, MessageSquare, BookOpen, ShieldCheck } from 'lucide-react';
 
 export const MILESTONES = [
-  { t: 0.15, id: "about", label: "About", title: "About Us", category: "Evolution" },
-  { t: 0.55, id: "agents", label: "Agents", title: "AI Agents", category: "Autonomous Units" },
-  { t: 0.65, id: "automation", label: "Features", title: "Build Once. Automate Everything.", category: "Features" },
-  { t: 0.70, id: "partners", label: "Partners", title: "Our Partners", category: "Trusted By" },
-  { t: 0.75, id: "social", label: "Social", title: "Partner Echoes", category: "Social Proof" },
+  { t: 0.10, id: "about", label: "About", title: "About Us", category: "Evolution" },
+  { t: 0.30, id: "agents", label: "Agents", title: "AI Agents", category: "Autonomous Units" },
+  { t: 0.50, id: "automation", label: "Features", title: "Build Once. Automate Everything.", category: "Features" },
+  { t: 0.70, id: "partners", label: "Clients", title: "Our Clients", category: "Trusted By" },
+  { t: 0.80, id: "social", label: "Social", title: "Partner Echoes", category: "Social Proof" },
   { t: 0.85, id: "contact", label: "Contact", title: "Get In Touch", category: "AI Driven Future" },
   { t: 0.95, id: "faq", label: "FAQ", title: "All You Need to Know", category: "Knowledge Base" }
 ];
@@ -60,7 +60,7 @@ export const TESTIMONIALS = [
 ];
 
 export const AGENTS = [
-  { name: "NOVA", role: "Email Marketer", desc: "Automates email marketing with AI-driven personalization, timing, and performance optimization.", icon: Mail },
+  { name: "NOVA", role: "Email Marketer", desc: "AI-powered email automation with smart personalization and optimized delivery.", icon: Mail },
   { name: "AEON", role: "ChatBot Builder", desc: "Conversational architect for 24/7 engagement and response trees.", icon: MessageSquare },
   { name: "ORION", role: "Course Creator", desc: "Synthesizes knowledge bases into structured educational modules.", icon: BookOpen },
   { name: "CIPHER", role: "Cyber Security", desc: "Scans web and mobile APK to identify vulnerabilities and security threats.", icon: ShieldCheck }
