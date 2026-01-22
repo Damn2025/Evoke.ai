@@ -365,9 +365,9 @@ const AgentsSection = ({ milestone, theme }) => {
           
           {/* Modal Content */}
           <div 
-            className={`relative z-10 w-full max-w-2xl rounded-3xl shadow-2xl transform transition-all duration-500 ease-out animate-modalSlideIn ${
+            className={`relative z-10 w-full max-w-2xl rounded-3xl shadow-2xl transform transition-all duration-500 ease-out ${
               isDark ? 'bg-gray-900' : 'bg-white'
-            }`}
+            } overflow-hidden`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Animated Border Glow */}
