@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import aeonImage from '../../assets/AEON.jpg';
 import novaImage from '../../assets/NOVA.jpg';
 import cipherImage from '../../assets/CIPHER.jpg';
@@ -7,8 +8,41 @@ const AutomationSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
+  const [visibleImages, setVisibleImages] = useState(new Set());
+  const imageRefs = useRef([]);
 
   const images = [aeonImage, novaImage, orionImage, cipherImage];
+
+  // Intersection Observer to detect when images enter viewport
+  useEffect(() => {
+    const observers = [];
+
+    imageRefs.current.forEach((ref, index) => {
+      if (!ref) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleImages((prev) => new Set([...prev, index]));
+              observer.unobserve(ref);
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        }
+      );
+
+      observer.observe(ref);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
 
   return (
     <div className="relative w-full py-10 sm:py-16 lg:py-20 px-3 sm:px-6">
@@ -47,16 +81,36 @@ const AutomationSection = ({ milestone, theme }) => {
           </p>
         </div>
 
-        {/* Images - Vertically Stacked */}
+        {/* Images - Vertically Stacked with Render Effect */}
         <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Automation ${index + 1}`}
-              className="w-full h-auto object-contain rounded-lg sm:rounded-xl md:rounded-2xl"
-            />
-          ))}
+          {images.map((image, index) => {
+            const isVisible = visibleImages.has(index);
+            const isEven = index % 2 === 0;
+            const direction = isEven ? 'left' : 'right';
+            
+            return (
+              <div
+                key={index}
+                ref={(el) => {
+                  if (el) imageRefs.current[index] = el;
+                }}
+                className={`w-full transition-all duration-1000 ease-out ${
+                  isVisible
+                    ? 'opacity-100 translate-x-0'
+                    : `opacity-0 ${direction === 'left' ? '-translate-x-20' : 'translate-x-20'}`
+                }`}
+                style={{
+                  transitionDelay: `${index * 0.15}s`
+                }}
+              >
+                <img
+                  src={image}
+                  alt={`Automation ${index + 1}`}
+                  className="w-full h-auto object-contain rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl"
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
