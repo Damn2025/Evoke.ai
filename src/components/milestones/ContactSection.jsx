@@ -281,10 +281,20 @@ const ContactSection = ({ milestone, theme }) => {
         <div className="w-full flex items-center justify-center">
           {/* Form - Centered */}
           <div className="w-full max-w-2xl perspective-1000">
-            <div className={`${isDark ? 'bg-[#0a0a0a]/80' : 'bg-white/70'} backdrop-blur-2xl p-8 lg:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border ${isDark ? 'border-white/10' : 'border-slate-200'} relative overflow-hidden transform-gpu transition-all hover:rotate-x-1 hover:rotate-y-1`}>
+            <div className={`group ${isDark ? 'bg-[#0a0a0a]/80' : 'bg-white/70'} backdrop-blur-2xl p-8 lg:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border ${isDark ? 'border-white/10' : 'border-slate-200'} relative overflow-hidden transform-gpu transition-all duration-500 hover:rotate-x-1 hover:rotate-y-1 hover:border-transparent`}>
+              {/* Gradient Border on Hover */}
+              <div className={`absolute -inset-[2px] rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0`}
+                style={{
+                  background: `linear-gradient(135deg, #0eaac8, #27bce2, #1dc393)`,
+                  backgroundSize: '200% 200%',
+                  animation: 'shimmer 3s ease-in-out infinite',
+                  filter: 'blur(1px)'
+                }}
+              />
+              <div className={`absolute inset-0 rounded-[2.5rem] ${isDark ? 'bg-[#0a0a0a]/80' : 'bg-white/70'} backdrop-blur-2xl z-0`}></div>
               
               {submitted && (
-                <div className={`absolute inset-0 ${isDark ? 'bg-black/95' : 'bg-white/95'} flex flex-col items-center justify-center z-20 animate-in zoom-in-95 duration-500`}>
+                <div className={`absolute inset-0 ${isDark ? 'bg-black/95' : 'bg-white/95'} flex flex-col items-center justify-center z-30 animate-in zoom-in-95 duration-500`}>
                   <div className={`p-5 rounded-full ${brandGradient} text-white mb-6 animate-bounce shadow-2xl`}>
                     <CheckCircle2 size={40} />
                   </div>
@@ -304,7 +314,7 @@ const ContactSection = ({ milestone, theme }) => {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1">Full Name</label>
@@ -389,6 +399,10 @@ const ContactSection = ({ milestone, theme }) => {
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes zoomIn95 { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
         .perspective-1000 { perspective: 1000px; }
         .rotate-x-1 { transform: rotateX(2deg); }
         .rotate-y-1 { transform: rotateY(2deg); }

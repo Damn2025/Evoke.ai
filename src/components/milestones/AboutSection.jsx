@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import aboutImage from '../../assets/Aboutus.png';
-
+import { AGENTS } from '../../data/constants';
+import aeonVideo from '../../assets/AEON_V.mp4';
+import novaVideo from '../../assets/NOVA_V.mp4';
+import orionVideo from '../../assets/ORION_V.mp4';
+import cipherVideo from '../../assets/CIPHER_VI.mp4';
+import AgentVideoPlayer from '../AgentVideoPlayer';
 import chatbotBuilderImage from '../../assets/ChatBot.png';
 import image1 from '../../assets/images/image1.png';
 import image2 from '../../assets/images/image2.png';
@@ -43,7 +47,7 @@ const AboutSection = ({ milestone, theme }) => {
                 key={index}
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
               >
-                {index > 0 ? ' ' : ''}{word}{' '}
+                {index > 0 ? ' ' : ''}{word}
               </span>
             );
           }
@@ -51,25 +55,15 @@ const AboutSection = ({ milestone, theme }) => {
         })}
       </h2>
       
-      {/* 3D Motion Section */}
-      <div className="relative px-3 sm:px-4 md:px-6 perspective-1000 pb-0 z-10">
+      {/* Agents Video Grid Section */}
+      <div className="relative px-3 sm:px-4 md:px-6 pb-0 z-10">
         <div className="w-full mx-auto relative">
-          <ThreeDImageCard isDark={isDark} />
-          
-          {/* Black Gradient Light Effect Below Image - Only for Dark Mode */}
-          {isDark && (
-            <div 
-              className="absolute bottom-0 left-0 right-0 h-20 sm:h-32 md:h-40 pointer-events-none"
-              style={{
-                background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 20%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,1) 100%)'
-              }}
-            />
-          )}
+          <AgentsVideoGrid isDark={isDark} />
         </div>
       </div>
 
       {/* About Text Section - Starts from gradient area */}
-      <div className={`max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-6 md:pt-8 pb-6 sm:pb-8 md:pb-12 relative z-10 ${
+      {/* <div className={`max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-6 md:pt-8 pb-6 sm:pb-8 md:pb-12 relative z-10 ${
         isDark ? 'mt-4 sm:-mt-24 md:-mt-30' : 'mt-8 sm:mt-4 md:mt-8'
       }`}>
         <p 
@@ -81,7 +75,7 @@ const AboutSection = ({ milestone, theme }) => {
         >
         <span className={textGradient}>EVOKE AI</span> is a comprehensive enterprise AI platform empowering businesses to adopt intelligent automation, transform workflows, and scale operations with efficiency and confidence.
         </p>
-      </div>
+      </div> */}
 
       {/* FAQ Cards Section - Long Flex Row */}
       <FAQCardsSection isDark={isDark} />
@@ -92,20 +86,367 @@ const AboutSection = ({ milestone, theme }) => {
   );
 };
 
-// Component that displays the static image
-const ThreeDImageCard = ({ isDark }) => {
+// Component that displays the agents video grid
+const AgentsVideoGrid = ({ isDark }) => {
+  const [isOrionModalOpen, setIsOrionModalOpen] = useState(false);
+  
+  // Map agent videos
+  const agentVideos = {
+    'AEON': aeonVideo,
+    'NOVA': novaVideo,
+    'ORION': orionVideo,
+    'CIPHER': cipherVideo
+  };
+
+  // Map agent links
+  const agentLinks = {
+    'AEON': 'http://evokeai.in/aeon/',
+    'NOVA': 'https://nova-message-crafter.netlify.app/',
+    'CIPHER': 'https://www.cyber.evokeai.info/',
+    'ORION': null // No link provided
+  };
+
+  // Map agent capabilities
+  const agentCapabilities = {
+    'NOVA': [
+      { text: 'Create campaigns', icon: '📧' },
+      { text: 'Personalize messages', icon: '✨' },
+      { text: 'Track performance', icon: '📊' }
+    ],
+    'AEON': [
+      { text: 'Build chatbots', icon: '💬' },
+      { text: 'Design flows', icon: '🔄' },
+      { text: 'Handle queries', icon: '🤖' }
+    ],
+    'ORION': [
+      { text: 'Create courses', icon: '📚' },
+      { text: 'Structure content', icon: '📝' },
+      { text: 'Publish modules', icon: '🚀' }
+    ],
+    'CIPHER': [
+      { text: 'Scan vulnerabilities', icon: '🔍' },
+      { text: 'Analyze threats', icon: '🛡️' },
+      { text: 'Generate reports', icon: '📋' }
+    ]
+  };
+
+  // Color configuration for each agent
+  const agentColors = [
+    { 
+      primary: '#12B9A7', // NOVA - Teal
+      textColor: isDark ? '#FFFFFF' : '#000000'
+    },
+    { 
+      primary: '#FED335', // AEON - Yellow
+      textColor: isDark ? '#FFFFFF' : '#000000'
+    },
+    { 
+      primary: '#7EC650', // ORION - Emerald
+      textColor: isDark ? '#FFFFFF' : '#000000'
+    },
+    { 
+      primary: '#dc2626', // CIPHER - Red
+      textColor: isDark ? '#FFFFFF' : '#000000'
+    }
+  ];
+
   return (
-    <div className="relative w-full group">
-      {/* Static Image Container */}
-      <div className={`w-full rounded-lg sm:rounded-xl md:rounded-2xl overflow-hidden ${isDark ? 'shadow-2xl' : ''}`}>
-        {/* Main Image - Using About.png */}
-        <img 
-          src={aboutImage} 
-          alt="About Evoke AI" 
-          className="w-full h-auto object-contain transition-transform duration-[2s] group-hover:scale-105"
-        />
+    <>
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes modalSlideIn {
+          from { 
+            opacity: 0;
+            transform: scale(0.7) translateY(-50px);
+          }
+          to { 
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        .flip-card {
+          perspective: 1000px;
+        }
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.6s;
+          transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+          transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+        {AGENTS.map((agent, index) => {
+          const agentColor = agentColors[index];
+          const agentVideo = agentVideos[agent.name];
+          const agentLink = agentLinks[agent.name];
+
+          const CardContent = (
+            <div className="flip-card h-full min-h-[500px] sm:min-h-[550px]">
+              <div className="flip-card-inner h-full">
+                {/* Front of Card */}
+                <div className="flip-card-front">
+                  <div
+                    className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-500 h-full ${
+                      isDark 
+                        ? 'bg-black/50 border-white/10 hover:border-emerald-500/50' 
+                        : 'bg-white/80 border-black/5 shadow-2xl shadow-black/5'
+                    } ${agentLink || agent.name === 'ORION' ? 'cursor-pointer' : ''}`}
+                    style={{
+                      background: isDark
+                        ? `linear-gradient(135deg, ${agentColor.primary}15, ${agentColor.primary}10)`
+                        : `linear-gradient(135deg, ${agentColor.primary}08, ${agentColor.primary}05)`
+                    }}
+                  >
+                    {/* Gradient Border Effect on Hover */}
+                    <div
+                      className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden"
+                      style={{
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 2.5s ease-in-out infinite'
+                      }}
+                    >
+                      <div className={`absolute inset-[1px] rounded-3xl ${
+                        isDark ? 'bg-black/50' : 'bg-white/80'
+                      }`}></div>
+                    </div>
+
+                    <div className="relative z-10 flex flex-col h-full">
+                      {/* Agent Video Container */}
+                      <div
+                        className="w-full rounded-t-2xl sm:rounded-t-3xl relative overflow-hidden"
+                        style={{
+                          boxShadow: `0 10px 40px ${agentColor.primary}40`,
+                          aspectRatio: '16 / 9'
+                        }}
+                      >
+                        <AgentVideoPlayer
+                          src={agentVideo}
+                          className="w-full h-full object-contain"
+                          alt={`${agent.name} agent video`}
+                        />
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 text-center flex-1 flex flex-col justify-center">
+                        {/* Agent Name */}
+                        <h3
+                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
+                          style={{
+                            color: agentColor.textColor
+                          }}
+                        >
+                          {agent.name}
+                        </h3>
+
+                        {/* Agent Role */}
+                        <p
+                          className="text-[10px] sm:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-4 sm:mb-6 lg:mb-8"
+                          style={{
+                            color: agentColor.primary
+                          }}
+                        >
+                          {agent.role}
+                        </p>
+
+                        {/* Agent Description */}
+                        <p 
+                          className="text-sm sm:text-base lg:text-lg leading-relaxed"
+                          style={{
+                            color: agentColor.textColor,
+                            opacity: isDark ? 0.9 : 0.7
+                          }}
+                        >
+                          {agent.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Back of Card - What I can do */}
+                <div className="flip-card-back">
+                  <div
+                    className={`relative rounded-2xl sm:rounded-3xl border h-full ${
+                      isDark 
+                        ? 'bg-black/50 border-white/10' 
+                        : 'bg-white/80 border-black/5 shadow-2xl shadow-black/5'
+                    }`}
+                    style={{
+                      background: isDark
+                        ? `linear-gradient(135deg, ${agentColor.primary}15, ${agentColor.primary}10)`
+                        : `linear-gradient(135deg, ${agentColor.primary}08, ${agentColor.primary}05)`
+                    }}
+                  >
+                    <div className="relative z-10 flex flex-col h-full p-4 sm:p-6 md:p-8 lg:p-10">
+                      {/* What I can do Section */}
+                       {/* Content Section */}
+                       <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 text-center flex-1 flex flex-col justify-center">
+                        {/* Agent Name */}
+                        <h3
+                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
+                          style={{
+                            color: agentColor.textColor
+                          }}
+                        >
+                          {agent.name}
+                        </h3>
+
+                        {/* Agent Role */}
+                        <p
+                          className="text-[10px] sm:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-4 sm:mb-6 lg:mb-8"
+                          style={{
+                            color: agentColor.primary
+                          }}
+                        >
+                          {agent.role}
+                        </p>
+
+                   
+                      
+                      </div>
+                      <div className="flex-1 flex flex-col justify-center">
+                        <h4 
+                          className="text-xs sm:text-sm font-bold text-center uppercase tracking-wider mb-4 sm:mb-6"
+                          style={{
+                            color: agentColor.primary
+                          }}
+                        >
+                          What I can do...
+                        </h4>
+                        <ul className="space-y-3 sm:space-y-4">
+                          {agentCapabilities[agent.name]?.map((capability, capIndex) => (
+                            <li 
+                              key={capIndex}
+                              className="flex items-center gap-2 sm:gap-3 font-semibold text-xs sm:text-sm border p-3 sm:p-4 rounded-lg"
+                              style={{
+                                color: agentColor.textColor,
+                                opacity: isDark ? 0.85 : 0.75,
+                                border: `1px solid ${agentColor.primary}`,
+                                borderRadius: '10px'
+                              }}
+                            >
+                              <span className="text-base sm:text-lg">{capability.icon}</span>
+                              <span>{capability.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <p 
+                          className="text-xs sm:text-sm mt-4 sm:mt-6 italic text-center"
+                          style={{
+                            color: agentColor.textColor,
+                            opacity: isDark ? 0.7 : 0.6
+                          }}
+                        >
+                          And many more...
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+
+          return agentLink ? (
+            <a
+              key={index}
+              href={agentLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              {CardContent}
+            </a>
+          ) : agent.name === 'ORION' ? (
+            <div 
+              key={index}
+              onClick={() => setIsOrionModalOpen(true)}
+              className="cursor-pointer"
+            >
+              {CardContent}
+            </div>
+          ) : (
+            <div key={index}>
+              {CardContent}
+            </div>
+          );
+        })}
       </div>
-    </div>
+
+      {/* ORION Modal */}
+      {isOrionModalOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setIsOrionModalOpen(false)}
+          style={{ animation: 'fadeIn 0.3s ease-out' }}
+        >
+          <div 
+            className="relative bg-black border-2 border-emerald-500/50 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+            style={{ animation: 'modalSlideIn 0.4s ease-out' }}
+          >
+            {/* Animated Border Glow */}
+            <div 
+              className="absolute -inset-[2px] rounded-2xl opacity-75 pointer-events-none"
+              style={{
+                background: 'linear-gradient(45deg, #7EC650, #1dc393, #7EC650)',
+                backgroundSize: '200% 200%',
+                animation: 'shimmer 3s ease-in-out infinite',
+                filter: 'blur(8px)'
+              }}
+            />
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setIsOrionModalOpen(false)}
+              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer"
+              aria-label="Close modal"
+            >
+              <svg 
+                className="w-6 h-6 text-emerald-400" 
+                fill="none" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <div className="relative z-10">
+              <h2 className="text-4xl font-black text-emerald-400 mb-4">Coming Soon</h2>
+              <p className="text-white/80 text-lg">
+                ORION is currently under development. Stay tuned for updates!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -119,7 +460,7 @@ const FAQCardsSection = ({ isDark }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
+              setIsVisible(true);
           }
         });
       },
@@ -141,7 +482,7 @@ const FAQCardsSection = ({ isDark }) => {
   }, []);
 
   return (
-    <div 
+    <div
       ref={sectionRef}
       className={`max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16 mt-10 sm:mt-16 md:mt-20 transition-all duration-1000 ease-out ${
         isVisible
@@ -238,7 +579,7 @@ const ImagesSection = ({ isDark }) => {
           
           return (
             <div
-              key={index}
+            key={index}
               className={`flex flex-col ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-20 sm:gap-8 md:gap-12`}
             >
               {/* Image Section */}

@@ -42,6 +42,30 @@ const AgentsSection = ({ milestone, theme }) => {
     'ORION': null // No link provided
   };
 
+  // Map agent capabilities
+  const agentCapabilities = {
+    'NOVA': [
+      { text: 'Create campaigns', icon: '📧' },
+      { text: 'Personalize messages', icon: '✨' },
+      { text: 'Track performance', icon: '📊' }
+    ],
+    'AEON': [
+      { text: 'Build chatbots', icon: '💬' },
+      { text: 'Design flows', icon: '🔄' },
+      { text: 'Handle queries', icon: '🤖' }
+    ],
+    'ORION': [
+      { text: 'Create courses', icon: '📚' },
+      { text: 'Structure content', icon: '📝' },
+      { text: 'Publish modules', icon: '🚀' }
+    ],
+    'CIPHER': [
+      { text: 'Scan vulnerabilities', icon: '🔍' },
+      { text: 'Analyze threats', icon: '🛡️' },
+      { text: 'Generate reports', icon: '📋' }
+    ]
+  };
+
   // Color configuration for each agent
   const agentColors = [
     { 
@@ -98,7 +122,7 @@ const AgentsSection = ({ milestone, theme }) => {
                     key={index}
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
                   >
-                    {word}{' '}
+                    {word} {' '}
                   </span>
                 );
               }
@@ -107,119 +131,7 @@ const AgentsSection = ({ milestone, theme }) => {
           </h2>
         </div>
 
-        {/* Agents Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-          {AGENTS.map((agent, index) => {
-            const Icon = agent.icon;
-            const agentColor = agentColors[index];
-            const agentVideo = agentVideos[agent.name];
-
-            const agentLink = agentLinks[agent.name];
-            const CardContent = (
-              <div
-                className={`group relative rounded-2xl sm:rounded-3xl border transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 ${
-                  isDark 
-                    ? 'bg-black/50 border-white/10 hover:border-emerald-500/50' 
-                    : 'bg-white/80 border-black/5 shadow-2xl shadow-black/5'
-                } ${agentLink || agent.name === 'ORION' ? 'cursor-pointer' : ''}`}
-                style={{
-                  background: isDark
-                    ? `linear-gradient(135deg, ${agentColor.primary}15, ${agentColor.primary}10)`
-                    : `linear-gradient(135deg, ${agentColor.primary}08, ${agentColor.primary}05)`
-                }}
-              >
-                {/* Gradient Border Effect on Hover */}
-                <div
-                  className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden"
-                  style={{
-                    // background: `linear-gradient(90deg, ${gradient.start}, ${gradient.end}, ${gradient.start})`,
-                    backgroundSize: '200% 100%',
-                    animation: 'shimmer 2.5s ease-in-out infinite'
-                  }}
-                >
-                  <div className={`absolute inset-[1px] rounded-3xl ${
-                    isDark ? 'bg-black/50' : 'bg-white/80'
-                  }`}></div>
-                </div>
-
-                <div className="relative z-10 flex flex-col">
-                  {/* Agent Video Container */}
-                  <div
-                    className="w-full rounded-t-2xl sm:rounded-t-3xl relative overflow-hidden"
-                    style={{
-                      boxShadow: `0 10px 40px ${agentColor.primary}40`,
-                      aspectRatio: '16 / 9'
-                    }}
-                  >
-                    <AgentVideoPlayer
-                      src={agentVideo}
-                      className="w-full h-full object-contain"
-                      alt={`${agent.name} agent video`}
-                    />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 text-center">
-                  {/* Agent Name */}
-                  <h3
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
-                    style={{
-                      color: agentColor.textColor
-                    }}
-                  >
-                    {agent.name}
-                  </h3>
-
-                  {/* Agent Role */}
-                  <p
-                    className="text-[10px] sm:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-4 sm:mb-6 lg:mb-8"
-                    style={{
-                      color: agentColor.primary
-                    }}
-                  >
-                    {agent.role}
-                  </p>
-
-                  {/* Agent Description */}
-                  <p 
-                    className="text-sm sm:text-base lg:text-lg leading-relaxed"
-                    style={{
-                      color: agentColor.textColor,
-                      opacity: isDark ? 0.9 : 0.7
-                    }}
-                  >
-                    {agent.desc}
-                  </p>
-                  </div>
-                </div>
-              </div>
-            );
-
-            return agentLink ? (
-              <a
-                key={index}
-                href={agentLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                {CardContent}
-              </a>
-            ) : agent.name === 'ORION' ? (
-              <div 
-                key={index}
-                onClick={() => setIsOrionModalOpen(true)}
-                className="cursor-pointer"
-              >
-                {CardContent}
-              </div>
-            ) : (
-              <div key={index}>
-                {CardContent}
-              </div>
-            );
-          })}
-        </div>
+       
 
         {/* Images Section - Bottom with Alternating Layout */}
         <div className="mt-16 sm:mt-20 lg:mt-24 w-full  mx-auto">
@@ -243,6 +155,41 @@ const AgentsSection = ({ milestone, theme }) => {
                   
                   {/* Text Section */}
                   <div className={`w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center text-left`}>
+                    {/* Name and Job Capsules */}
+                    <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                      {index === 0 && (
+                        <>
+                          <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider ${isDark ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30' : 'bg-teal-100 text-teal-700 border border-teal-300'}`}>
+                            NOVA: Email Marketer
+                          </span>
+
+                          
+                        </>
+                      )}
+                      {index === 1 && (
+                        <>
+                          <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider ${isDark ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : 'bg-yellow-100 text-yellow-700 border border-yellow-300'}`}>
+                            AEON: ChatBot Builder
+                          </span>
+                        </>
+                      )}
+                      {index === 2 && (
+                        <>
+                          <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider ${isDark ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-emerald-100 text-emerald-700 border border-emerald-300'}`}>
+                            ORION: Course Creator
+                          
+                      
+                          </span>
+                        </>
+                      )}
+                      {index === 3 && (
+                        <>
+                          <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider ${isDark ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-red-100 text-red-700 border border-red-300'}`}>
+                            CIPHER: Cyber Security
+                          </span>
+                        </>
+                      )}
+                    </div>
                     <h3 className={`text-6xl sm:text-3xl md:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
                       {index === 0 && (
                         <>

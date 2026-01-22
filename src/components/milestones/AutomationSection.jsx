@@ -8,7 +8,7 @@ const AutomationSection = ({ milestone, theme }) => {
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
 
-  const images = [aeonImage, novaImage, cipherImage, orionImage];
+  const images = [aeonImage, novaImage, orionImage, cipherImage];
 
   return (
     <div className="relative w-full py-10 sm:py-16 lg:py-20 px-3 sm:px-6">

@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Mail, Phone } from 'lucide-react';
-import { useThreeScene } from './hooks/useThreeScene';
+import { useState } from 'react';
+import { Mail, Phone, ArrowUp } from 'lucide-react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MilestoneOverlay from './components/MilestoneOverlay';
@@ -10,63 +9,13 @@ import './App.css';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [scrollPercent, setScrollPercent] = useState(0);
-  const [targetScrollPercent, setTargetScrollPercent] = useState(0);
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
-  const canvasRef = useThreeScene(theme, scrollPercent);
 
-  // Scroll logic - Optimized with throttling
-  useEffect(() => {
-    let lastScrollTime = 0;
-    const throttleDelay = 16; // ~60fps max
-    
-    const handleScroll = () => {
-      const now = performance.now();
-      if (now - lastScrollTime < throttleDelay) return;
-      lastScrollTime = now;
-      
-      const h = document.documentElement;
-      const scrollHeight = h.scrollHeight - h.clientHeight;
-      const scrollPercent = scrollHeight > 0 ? h.scrollTop / scrollHeight : 0;
-      setTargetScrollPercent(scrollPercent);
-    };
-    
-    // Initial calculation
-    handleScroll();
-    
-    // Add scroll listener with throttling
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-
-    let animationId;
-    let isRunning = true;
-    
-    const animate = () => {
-      if (!isRunning) return;
-      
-      setScrollPercent(prev => {
-        const next = prev + (targetScrollPercent - prev) * 0.05;
-        return next;
-      });
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      isRunning = false;
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
-  }, [targetScrollPercent]);
-
-  const jumpTo = (percent) => {
-    window.scrollTo({
-      top: percent * (document.documentElement.scrollHeight - window.innerHeight),
-      behavior: 'smooth'
-    });
+  const jumpTo = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   // If privacy policy is shown, render only that
@@ -79,20 +28,10 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen font-sans transition-colors duration-700 `}>
-      {/* Fixed 3D Canvas */}
-      <div 
-        ref={canvasRef} 
-        className={`fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000 ${
-          scrollPercent > 0.05 ? 'opacity-100' : 'opacity-0'
-        }`} 
-      />
+    <div className={`min-h-screen font-sans transition-colors duration-700 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       <Navigation theme={theme} setTheme={setTheme} jumpTo={jumpTo} />
-      <Hero theme={theme} scrollPercent={scrollPercent} jumpTo={jumpTo}/>
-      <MilestoneOverlay scrollPercent={scrollPercent} theme={theme} setShowPrivacyPolicy={setShowPrivacyPolicy} />
-      
-      <div className="h-[2000vh] pointer-events-none" />
-     
+      <Hero theme={theme} jumpTo={jumpTo}/>
+      <MilestoneOverlay theme={theme} setShowPrivacyPolicy={setShowPrivacyPolicy} />
 
       {/* Floating Action Buttons - Mobile Only - Fixed to all sections */}
       <div className=" fixed bottom-6 right-4 z-[300] flex flex-col gap-3">
@@ -132,6 +71,15 @@ export default function App() {
         >
           <Phone size={20} strokeWidth={2} />
         </a>
+
+        {/* Scroll to Top Button */}
+        <button
+          onClick={() => jumpTo('hero')}
+          className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393] hover:from-[#1dc393] hover:via-[#27bce2] hover:to-[#0eaac8] text-white"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} strokeWidth={2.5} />
+        </button>
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ import { useState, useRef, useEffect } from 'react';
  * @param {string} src - Video source URL
  * @param {string} className - Additional CSS classes
  * @param {string} alt - Alt text for accessibility
+ * @param {boolean} autoPlay - Whether to autoplay the video (default: true)
  */
-const AgentVideoPlayer = ({ src, className, alt }) => {
+const AgentVideoPlayer = ({ src, className, alt, autoPlay = true }) => {
   const [shouldLoad, setShouldLoad] = useState(false);
   const videoRef = useRef(null);
   const containerRef = useRef(null);
@@ -44,8 +45,8 @@ const AgentVideoPlayer = ({ src, className, alt }) => {
           ref={videoRef}
           src={src}
           className={`${className} w-full h-full`}
-          autoPlay
-          loop
+          autoPlay={autoPlay}
+          loop={autoPlay}
           muted
           playsInline
           aria-label={alt}

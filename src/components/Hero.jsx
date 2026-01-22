@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Zap } from 'lucide-react';
 import * as THREE from 'three';
+import ParticleBackground from './ParticleBackground';
 
-const Hero = ({ theme, scrollPercent, jumpTo }) => {
+const Hero = ({ theme, jumpTo }) => {
   const isDark = theme === 'dark';
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
@@ -14,7 +15,6 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
   const lightsRef = useRef({ ambient: null, main: null });
   const mouseRef = useRef({ x: 0, y: 0 });
   const frameRef = useRef(null);
-  const scrollPercentRef = useRef(scrollPercent); // Track scrollPercent for animation loop
 
   const COLORS = [0x0eaac8, 0x1dc393, 0x27bce2, 0x7fe7ce];
 
@@ -149,11 +149,6 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
         
         frameRef.current = requestAnimationFrame(animate);
         
-        // Pause animation when Hero is not visible (performance optimization)
-        if (scrollPercentRef.current > 0.08) {
-          return; // Skip rendering when Hero is hidden
-        }
-        
         const deltaTime = Math.min((currentTime - lastTime) / 16.67, 2); // Cap at 2x for stability
         lastTime = currentTime;
         
@@ -212,12 +207,7 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
     }
 
       return initThree();
-    }, []);
-
-  // Update scrollPercent ref for animation loop access
-  useEffect(() => {
-    scrollPercentRef.current = scrollPercent;
-  }, [scrollPercent]);
+    }, [isDark]);
 
   // Update lights and bubble opacity when theme changes
   useEffect(() => {
@@ -235,38 +225,18 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
       });
     }
   }, [isDark]);
-
-  // Calculate smooth exit animation similar to other sections
-  const isHeroActive = scrollPercent < 0.05;
-  const glowOpacity = isHeroActive ? (isDark ? 0.22 : 0.06) : 0;
   
   return (
-    <div 
-      className={`hero-container fixed inset-0 z-10 transition-all duration-1000 ease-out ${
-        isHeroActive 
-          ? 'opacity-100 translate-y-0 pointer-events-auto' 
-          : 'opacity-0 translate-y-20 pointer-events-none'
-      }`}
+    <section 
+      id="hero"
+      className="hero-container relative min-h-screen z-10"
       style={{
-        background: isHeroActive 
-          ? (isDark ? '#000000' : '#f8fafc')
-          : 'transparent',
-        transition: 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1), background-color 1s cubic-bezier(0.4, 0, 0.2, 1)'
+        background: isDark ? '#000000' : '#f8fafc',
       }}
     >
       <style>{`
         .hero-container {
           will-change: opacity, transform;
-        }
-
-        .hero-bg-glow {
-          position: absolute;
-          inset: -30%;
-          background: radial-gradient(circle, ${colors.secondary} 0%, transparent 65%);
-          opacity: ${glowOpacity};
-          z-index: 0;
-          pointer-events: none;
-          transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-3d-canvas {
@@ -277,7 +247,7 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
           width: 100%;
           height: 100%;
           overflow: hidden;
-          opacity: ${isHeroActive ? 1 : 0};
+          opacity: 1;
           transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
@@ -385,11 +355,10 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
         }
       `}</style>
 
-      {/* Atmospheric Background Layer */}
-      <div className="hero-bg-glow"></div>
+      {/* Particle Background Layer */}
+      <ParticleBackground theme={theme} />
 
-      {/* 3D Canvas Layer */}
-      <div className="hero-3d-canvas" ref={mountRef}></div>
+    
 
       {/* Main UI Layer */}
       <main className="hero-ui">
@@ -415,14 +384,14 @@ const Hero = ({ theme, scrollPercent, jumpTo }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <button className="hero-btn hero-btn-primary" onClick={() => jumpTo(0.85)}>
+            <button className="hero-btn hero-btn-primary" onClick={() => jumpTo('contact')}>
               Get Started <Zap size={18} />
             </button>
             
           </motion.div>
         </section>
       </main>
-    </div>
+    </section>
   );
 };
 
