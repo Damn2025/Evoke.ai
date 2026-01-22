@@ -6,7 +6,9 @@ import evokeLogo from '../assets/evoke.png';
 const Navigation = ({ theme, setTheme, jumpTo }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAgentsDropdownOpen, setIsAgentsDropdownOpen] = useState(false);
+  const [isOrionModalOpen, setIsOrionModalOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const isDark = theme === 'dark';
 
   // Agent links mapping
   const agentLinks = {
@@ -104,9 +106,7 @@ const Navigation = ({ theme, setTheme, jumpTo }) => {
                               ? 'hover:bg-white/10 text-white' 
                               : 'hover:bg-black/10 text-black'
                           }`}
-                          style={{
-                            borderLeft: `3px solid ${agentColors[agentName]}`
-                          }}
+                         
                         >
                           <div className="font-bold text-sm">{agentName}</div>
                           <div className={`text-xs ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>
@@ -120,16 +120,14 @@ const Navigation = ({ theme, setTheme, jumpTo }) => {
                           key={agentName}
                           onClick={() => {
                             setIsAgentsDropdownOpen(false);
-                            jumpTo('agents');
+                            setIsOrionModalOpen(true);
                           }}
                           className={`block w-full text-left px-4 py-3 transition-all duration-300 hover:scale-[1.02] ${
                             theme === 'dark' 
                               ? 'hover:bg-white/10 text-white' 
                               : 'hover:bg-black/10 text-black'
                           }`}
-                          style={{
-                            borderLeft: `3px solid ${agentColors[agentName]}`
-                          }}
+                        
                         >
                           <div className="font-bold text-sm">{agentName}</div>
                           <div className={`text-xs ${theme === 'dark' ? 'text-white/60' : 'text-black/60'}`}>
@@ -263,7 +261,7 @@ const Navigation = ({ theme, setTheme, jumpTo }) => {
                             key={agentName}
                             onClick={() => {
                               setIsAgentsDropdownOpen(false);
-                              handleNavClick('agents');
+                              setIsOrionModalOpen(true);
                             }}
                             className={`block w-full text-left px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-300 ${
                               theme === 'dark' 
@@ -308,6 +306,99 @@ const Navigation = ({ theme, setTheme, jumpTo }) => {
           </button>
         </div>
       </div>
+
+      {/* ORION Coming Soon Modal */}
+      {isOrionModalOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+          onClick={() => setIsOrionModalOpen(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative z-10 w-full max-w-2xl rounded-3xl shadow-2xl transform transition-all duration-500 ease-out ${
+              isDark ? 'bg-gray-900' : 'bg-white'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Animated Border Glow */}
+            <div className={`absolute inset-0 rounded-3xl pointer-events-none ${
+              isDark ? 'bg-gradient-to-r from-[#7EC650]/20 via-[#7EC650]/10 to-[#7EC650]/20' : 'bg-gradient-to-r from-[#7EC650]/10 via-[#7EC650]/5 to-[#7EC650]/10'
+            } animate-pulse`}></div>
+            
+            {/* Close Button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOrionModalOpen(false);
+              }}
+              className={`absolute top-6 right-6 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 cursor-pointer ${
+                isDark ? 'hover:bg-gray-800 text-white bg-gray-800/50' : 'hover:bg-gray-100 text-gray-600 bg-white/50'
+              }`}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Body */}
+            <div className="relative p-10 sm:p-16 text-center">
+              <div className="mb-8">
+                <div className={`inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-6 animate-pulse ${
+                  isDark ? 'bg-[#7EC650]/20' : 'bg-[#7EC650]/10'
+                }`}>
+                  <svg className="w-12 h-12 sm:w-14 sm:h-14 text-[#7EC650]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-6 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+                Coming Soon
+              </h2>
+              
+              <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed mb-8 ${
+                isDark ? 'text-white/70' : 'text-gray-600'
+              }`}>
+                ORION is currently under development. We're working hard to bring you an amazing e-learning experience. Stay tuned!
+              </p>
+
+              {/* Animated Loading Dots */}
+              <div className="flex justify-center gap-2">
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CSS Animations */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes modalSlideIn {
+          from { 
+            opacity: 0;
+            transform: scale(0.7) translateY(-50px);
+          }
+          to { 
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+      `}</style>
     </>
   );
 };
