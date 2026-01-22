@@ -98,7 +98,7 @@ const AgentsSection = ({ milestone, theme }) => {
                     key={index}
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
                   >
-                    {word}
+                    {word}{' '}
                   </span>
                 );
               }

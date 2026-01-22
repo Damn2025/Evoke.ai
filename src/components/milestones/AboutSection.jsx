@@ -43,7 +43,7 @@ const AboutSection = ({ milestone, theme }) => {
                 key={index}
                 className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
               >
-                {index > 0 ? ' ' : ''}{word}
+                {index > 0 ? ' ' : ''}{word}{' '}
               </span>
             );
           }

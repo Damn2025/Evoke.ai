@@ -1,8 +1,8 @@
 import { Mail, MessageSquare, BookOpen, ShieldCheck } from 'lucide-react';
 
 export const MILESTONES = [
-  { t: 0.10, id: "about", label: "About", title: "About Us", category: "Evolution" },
-  { t: 0.30, id: "agents", label: "Agents", title: "AI Agents", category: "Autonomous Units" },
+  { t: 0.10, id: "about", label: "About", title: "About Us ", category: "Evolution" },
+  { t: 0.30, id: "agents", label: "Agents", title: "AI    Agents", category: "Autonomous Units" },
   { t: 0.50, id: "automation", label: "Features", title: "Build Once. Automate Everything.", category: "Features" },
   { t: 0.70, id: "partners", label: "Clients", title: "Our Clients", category: "Trusted By" },
   { t: 0.80, id: "social", label: "Social", title: "Partner Echoes", category: "Social Proof" },
