@@ -9,6 +9,10 @@ import chatbotBuilderImage from '../../assets/ChatBot.png';
 import image1 from '../../assets/images/image1.png';
 import image2 from '../../assets/images/image2.png';
 import image3 from '../../assets/images/image3.png';
+import aeonDP from '../../assets/AEONDP.jpg';
+import cipherDP from '../../assets/CIPHERDP.jpg';
+import orionDP from '../../assets/ORIONDP.jpg';
+import novaDP from '../../assets/NOVADP.jpg';
 
 const AboutSection = ({ milestone, theme }) => {
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
@@ -299,12 +303,50 @@ const AgentsVideoGrid = ({ isDark }) => {
                     }}
                   >
                     <div className="relative z-10 flex flex-col h-full p-4 sm:p-6 md:p-8 lg:p-10">
-                      {/* What I can do Section */}
-                       {/* Content Section */}
-                       <div className="w-full p-4 sm:p-6 md:p-8 lg:p-10 text-center flex-1 flex flex-col justify-center">
+                      {/* Profile Picture Section */}
+                      <div className="flex flex-col items-center mb-4 sm:mb-6">
+                        <div 
+                          className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 mb-3 sm:mb-4"
+                          style={{
+                            borderColor: agentColor.primary,
+                            boxShadow: `0 0 20px ${agentColor.primary}40`
+                          }}
+                        >
+                          {agent.name === 'AEON' ? (
+                            <img
+                              src={aeonDP}
+                              alt={`${agent.name} profile`}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : agent.name === 'CIPHER' ? (
+                            <img
+                              src={cipherDP}
+                              alt={`${agent.name} profile`}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : agent.name === 'ORION' ? (
+                            <img
+                              src={orionDP}
+                              alt={`${agent.name} profile`}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : agent.name === 'NOVA' ? (
+                            <img
+                              src={novaDP}
+                              alt={`${agent.name} profile`}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <img
+                              src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${agent.name}&backgroundColor=${agentColor.primary.replace('#', '')}&radius=50`}
+                              alt={`${agent.name} profile`}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
                         {/* Agent Name */}
                         <h3
-                          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black italic mb-2 sm:mb-3"
+                          className="text-xl sm:text-2xl md:text-3xl font-black italic mb-1 sm:mb-2"
                           style={{
                             color: agentColor.textColor
                           }}
@@ -314,17 +356,16 @@ const AgentsVideoGrid = ({ isDark }) => {
 
                         {/* Agent Role */}
                         <p
-                          className="text-[10px] sm:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-4 sm:mb-6 lg:mb-8"
+                          className="text-[10px] sm:text-xs font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase"
                           style={{
                             color: agentColor.primary
                           }}
                         >
                           {agent.role}
                         </p>
-
-                   
-                      
                       </div>
+
+                      {/* What I can do Section */}
                       <div className="flex-1 flex flex-col justify-center">
                         <h4 
                           className="text-xs sm:text-sm font-bold text-center uppercase tracking-wider mb-4 sm:mb-6"
@@ -461,8 +502,8 @@ const AgentsVideoGrid = ({ isDark }) => {
                 <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
-          </div>
-        </div>
+      </div>
+    </div>
       )}
     </>
   );

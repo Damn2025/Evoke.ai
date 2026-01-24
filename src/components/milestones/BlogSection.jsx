@@ -1,36 +1,9 @@
-import { useState, useRef } from 'react';
-import { Calendar, Clock, ExternalLink, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, ExternalLink } from 'lucide-react';
 
 const BlogSection = ({ milestone, theme }) => {
   const isDark = theme === 'dark';
-  const [expandedPost, setExpandedPost] = useState(null);
-  const scrollContainerRef = useRef(null);
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
-
-  const slideLeft = () => {
-    if (scrollContainerRef.current) {
-      const cardWidth = 480; // Match the md:w-[480px] width
-      const gap = 40; // Match gap-10 (2.5rem = 40px)
-      const scrollAmount = cardWidth + gap;
-      scrollContainerRef.current.scrollBy({
-        left: -scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const slideRight = () => {
-    if (scrollContainerRef.current) {
-      const cardWidth = 480; // Match the md:w-[480px] width
-      const gap = 40; // Match gap-10 (2.5rem = 40px)
-      const scrollAmount = cardWidth + gap;
-      scrollContainerRef.current.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   // Blog posts data with full content
   const blogPosts = [
@@ -179,42 +152,12 @@ const BlogSection = ({ milestone, theme }) => {
           </p>
         </div>
 
-        {/* Blog Posts Row with Navigation */}
-        <div className="relative">
-          {/* Left Navigation Button */}
-          <button
-            onClick={slideLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg ${
-              isDark
-                ? 'bg-black/80 border border-white/20 hover:bg-black/90 text-white'
-                : 'bg-white/90 border border-black/10 hover:bg-white text-black'
-            } backdrop-blur-sm`}
-            aria-label="Slide left"
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          {/* Right Navigation Button */}
-          <button
-            onClick={slideRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg ${
-              isDark
-                ? 'bg-black/80 border border-white/20 hover:bg-black/90 text-white'
-                : 'bg-white/90 border border-black/10 hover:bg-white text-black'
-            } backdrop-blur-sm`}
-            aria-label="Slide right"
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          {/* Blog Posts Row */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex flex-row gap-6 sm:gap-8 lg:gap-10 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-12"
-          >
-            {blogPosts.map((post) => (
+        {/* Blog Posts Marquee */}
+        <div className="marquee-container">
+          <div className="marquee-content-blogs">
+            {[...blogPosts, ...blogPosts].map((post, index) => (
             <article
-              key={post.id}
+              key={`${post.id}-${index}`}
               className={`group relative flex-shrink-0 w-[350px] sm:w-[420px] md:w-[480px] rounded-2xl sm:rounded-3xl border transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 overflow-hidden ${
                 isDark 
                   ? 'bg-black/50 border-white/10 hover:border-emerald-500/50' 
@@ -269,17 +212,6 @@ const BlogSection = ({ milestone, theme }) => {
                 )}
               </div>
 
-              {/* Expandable Full Content */}
-              {expandedPost === post.id && post.content && (
-                <div className={`mt-4 space-y-3 text-sm sm:text-base leading-relaxed transition-all duration-300 ${
-                  isDark ? 'text-white/80' : 'text-gray-700'
-                }`}>
-                  {post.content.slice(1).map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
-                  ))}
-                </div>
-              )}
-
               {/* Expand/Collapse Button */}
               {/* {post.content && post.content.length > 1 && (
                 <button
@@ -319,7 +251,7 @@ const BlogSection = ({ milestone, theme }) => {
               </div>
             </div>
           </article>
-          ))}
+            ))}
           </div>
         </div>
 
@@ -339,12 +271,17 @@ const BlogSection = ({ milestone, theme }) => {
         </div> */}
 
         <style>{`
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+          @keyframes marquee-blogs {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
           }
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+          .marquee-content-blogs {
+            display: flex;
+            gap: 1.5rem;
+            animation: marquee-blogs 60s linear infinite;
+          }
+          .marquee-container:hover .marquee-content-blogs {
+            animation-play-state: paused;
           }
         `}</style>
       </div>
