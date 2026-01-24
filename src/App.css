@@ -31,6 +31,15 @@
   animation: marquee-reverse 50s linear infinite; 
 }
 
+/* Pause marquee animation on hover over testimonial card */
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+.marquee-container:hover .marquee-content-rev {
+  animation-play-state: paused;
+}
+
 /* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 12px;

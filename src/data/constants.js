@@ -6,6 +6,7 @@ export const MILESTONES = [
   { t: 0.50, id: "automation", label: "Features", title: "Build Once. Automate Everything.", category: "Features" },
   { t: 0.70, id: "partners", label: "Clients", title: "Our Clients", category: "Trusted By" },
   { t: 0.80, id: "social", label: "Social", title: "Partner Echoes", category: "Social Proof" },
+  { t: 0.82, id: "blogs", label: "Blogs", title: "Latest Insights", category: "Knowledge Hub" },
   { t: 0.85, id: "contact", label: "Contact", title: "Get In Touch", category: "AI Driven Future" },
   { t: 0.95, id: "faq", label: "FAQ", title: "All You Need to Know", category: "Knowledge Base" }
 ];

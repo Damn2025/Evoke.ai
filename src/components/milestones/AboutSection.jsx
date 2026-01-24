@@ -397,51 +397,69 @@ const AgentsVideoGrid = ({ isDark }) => {
       {/* ORION Modal */}
       {isOrionModalOpen && (
         <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
           onClick={() => setIsOrionModalOpen(false)}
-          style={{ animation: 'fadeIn 0.3s ease-out' }}
         >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          
+          {/* Modal Content */}
           <div 
-            className="relative bg-black border-2 border-emerald-500/50 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className={`relative z-10 w-full max-w-2xl rounded-3xl shadow-2xl transform transition-all duration-500 ease-out ${
+              isDark ? 'bg-gray-900' : 'bg-white'
+            } overflow-hidden`}
             onClick={(e) => e.stopPropagation()}
-            style={{ animation: 'modalSlideIn 0.4s ease-out' }}
           >
             {/* Animated Border Glow */}
-            <div 
-              className="absolute -inset-[2px] rounded-2xl opacity-75 pointer-events-none"
-              style={{
-                background: 'linear-gradient(45deg, #7EC650, #1dc393, #7EC650)',
-                backgroundSize: '200% 200%',
-                animation: 'shimmer 3s ease-in-out infinite',
-                filter: 'blur(8px)'
-              }}
-            />
+            <div className={`absolute inset-0 rounded-3xl pointer-events-none ${
+              isDark ? 'bg-gradient-to-r from-[#7EC650]/20 via-[#7EC650]/10 to-[#7EC650]/20' : 'bg-gradient-to-r from-[#7EC650]/10 via-[#7EC650]/5 to-[#7EC650]/10'
+            } animate-pulse`}></div>
             
             {/* Close Button */}
             <button
-              onClick={() => setIsOrionModalOpen(false)}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer"
-              aria-label="Close modal"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOrionModalOpen(false);
+              }}
+              className={`absolute top-6 right-6 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 cursor-pointer ${
+                isDark ? 'hover:bg-gray-800 text-white bg-gray-800/50' : 'hover:bg-gray-100 text-gray-600 bg-white/50'
+              }`}
             >
-              <svg 
-                className="w-6 h-6 text-emerald-400" 
-                fill="none" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth="2" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
-            {/* Modal Content */}
-            <div className="relative z-10">
-              <h2 className="text-4xl font-black text-emerald-400 mb-4">Coming Soon</h2>
-              <p className="text-white/80 text-lg">
-                ORION is currently under development. Stay tuned for updates!
+            {/* Modal Body */}
+            <div className="relative p-10 sm:p-16 text-center">
+              <div className="mb-8">
+                <div className={`inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-6 animate-pulse ${
+                  isDark ? 'bg-[#7EC650]/20' : 'bg-[#7EC650]/10'
+                }`}>
+                  <svg className="w-12 h-12 sm:w-14 sm:h-14 text-[#7EC650]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              
+              <h2 className={`text-4xl sm:text-5xl md:text-6xl font-bold mb-6 ${
+                isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+                Coming Soon
+              </h2>
+              
+              <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed mb-8 ${
+                isDark ? 'text-white/70' : 'text-gray-600'
+              }`}>
+                ORION is currently under development. We're working hard to bring you an amazing e-learning experience. Stay tuned!
               </p>
+
+              {/* Animated Loading Dots */}
+              <div className="flex justify-center gap-2">
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-3 h-3 bg-[#7EC650] rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+              </div>
             </div>
           </div>
         </div>
@@ -636,11 +654,28 @@ const ImagesSection = ({ isDark }) => {
                     </div>
                   </div>
                 ) : (
-                  <p className={`text-sm sm:text-base font-medium md:text-lg leading-relaxed ${isDark ? 'text-white/80' : 'text-black/70'}`}>
+                  <p className={`text-sm sm:text-base font-medium md:text-lg leading-relaxed mb-6 ${isDark ? 'text-white/80' : 'text-black/70'}`}>
                     {index === 0 && 'EVOKE AI understands your business from the ground up. It adapts to your workflows, brand voice, and goals by learning from your data, documents, and digital presence. Share your guidelines, assets, and instructions to unlock smarter, more accurate outcomes. By taking care of repetitive and operational tasks, EVOKE AI empowers your team to focus on strategy, creativity, and growth—working alongside humans, not replacing them.'}
                     {index === 2 && 'Join leading enterprises that trust EVOKE AI to deliver exceptional results and transform their digital infrastructure.Engineered to meet enterprise-grade standards for reliability, compliance, and long-term growth.'}
                   </p>
                 )}
+                
+                {/* Single Button - Below Content, Left Aligned */}
+                <div className="flex justify-start mt-4 sm:mt-6">
+                  <button
+                    onClick={() => {
+                      const element = document.getElementById('contact');
+                      if (element) element.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 ${
+                      isDark
+                        ? 'bg-gradient-to-r from-[#0eaac8] to-[#1dc393] text-white hover:shadow-lg hover:shadow-cyan-500/30'
+                        : 'bg-gradient-to-r from-[#0eaac8] to-[#1dc393] text-white hover:shadow-lg hover:shadow-cyan-500/20'
+                    }`}
+                  >
+                    Know More
+                  </button>
+                </div>
               </div>
             </div>
           );
