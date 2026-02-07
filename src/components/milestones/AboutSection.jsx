@@ -392,15 +392,7 @@ const AgentsVideoGrid = ({ isDark }) => {
                             </li>
                           ))}
                         </ul>
-                        <p 
-                          className="text-xs sm:text-sm mt-4 sm:mt-6 italic text-center"
-                          style={{
-                            color: agentColor.textColor,
-                            opacity: isDark ? 0.7 : 0.6
-                          }}
-                        >
-                          And many more...
-                        </p>
+                   
                       </div>
                     </div>
                   </div>

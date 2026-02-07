@@ -5,7 +5,7 @@ import novaVideo from '../../assets/NOVA_V.mp4';
 import orionVideo from '../../assets/ORION_V.mp4';
 import cipherVideo from '../../assets/CIPHER_VI.mp4';
 import AgentVideoPlayer from '../AgentVideoPlayer';
-import image4 from '../../assets/images/image4.jpeg';
+import image4 from '../../assets/images/image4.jpg';
 import image5 from '../../assets/images/image5.png';
 import image6 from '../../assets/images/image6.jpg';
 import image7 from '../../assets/images/image7.png';

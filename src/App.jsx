@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { Mail, Phone, ArrowUp } from 'lucide-react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -9,7 +10,6 @@ import './App.css';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   const jumpTo = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -18,20 +18,13 @@ export default function App() {
     }
   };
 
-  // If privacy policy is shown, render only that
-  if (showPrivacyPolicy) {
-    return (
-      <div className={`min-h-screen font-sans transition-colors duration-700`}>
-        <PrivacyPolicy theme={theme} onBack={() => setShowPrivacyPolicy(false)} />
-      </div>
-    );
-  }
-
   return (
-    <div className={`min-h-screen font-sans transition-colors duration-700 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
-      <Navigation theme={theme} setTheme={setTheme} jumpTo={jumpTo} />
-      <Hero theme={theme} jumpTo={jumpTo}/>
-      <MilestoneOverlay theme={theme} setShowPrivacyPolicy={setShowPrivacyPolicy} />
+    <Routes>
+      <Route path="/" element={
+        <div className={`min-h-screen font-sans transition-colors duration-700 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+          <Navigation theme={theme} setTheme={setTheme} jumpTo={jumpTo} />
+          <Hero theme={theme} jumpTo={jumpTo}/>
+          <MilestoneOverlay theme={theme} />
 
       {/* Floating Action Buttons - Mobile Only - Fixed to all sections */}
       <div className=" fixed bottom-6 right-4 z-[300] flex flex-col gap-3">
@@ -57,6 +50,7 @@ export default function App() {
         {/* Mail Button - White with Red */}
         <a
           href="https://mail.google.com/mail/?view=cm&fs=1&to=damnart.ai.guladab@gmail.com"
+          target="_blank"
           className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 bg-white hover:bg-gray-100 text-red-600 hover:text-red-700 border-2 border-red-200"
           aria-label="Send email"
         >
@@ -81,6 +75,13 @@ export default function App() {
           <ArrowUp size={20} strokeWidth={2.5} />
         </button>
       </div>
-    </div>
+        </div>
+      } />
+      <Route path="/Privacy-Policy" element={
+        <div className="min-h-screen font-sans transition-colors duration-700">
+          <PrivacyPolicy theme={theme} />
+        </div>
+      } />
+    </Routes>
   );
 }

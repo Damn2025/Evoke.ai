@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import evokeLogo from '../assets/evoke.png';
 
@@ -111,7 +112,7 @@ const LinkedInButton = styled.div`
   }
 `;
 
-const Footer = ({ theme, onPrivacyClick }) => {
+const Footer = ({ theme }) => {
   return (
     <footer className={`relative z-[300] py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 lg:px-10 border-t ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-black/5'}`}>
       <div className="max-w-7xl mx-auto">
@@ -156,19 +157,12 @@ const Footer = ({ theme, onPrivacyClick }) => {
             </div>
             {/* Privacy Policy Link */}
             <div className="pt-2 lg:pt-4">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  if (onPrivacyClick) {
-                    onPrivacyClick();
-                  }
-                }}
-                className={`text-xs sm:text-sm font-medium tracking-wide hover:opacity-80 transition-opacity cursor-pointer text-center lg:text-right ${theme === 'dark' ? 'text-white/70 hover:text-white' : 'text-black/70 hover:text-black'}`}
-                type="button"
+              <Link
+                to="/Privacy-Policy"
+                className={`text-xs sm:text-sm font-medium tracking-wide hover:opacity-80 transition-opacity cursor-pointer text-center lg:text-right block ${theme === 'dark' ? 'text-white/70 hover:text-white' : 'text-black/70 hover:text-black'}`}
               >
                 Privacy Policy
-              </button>
+              </Link>
             </div>
             {/* Copyright - Below social icons */}
             <div className={`pt-4 lg:pt-6 border-t ${theme === 'dark' ? 'border-white/5' : 'border-black/5'}`}>

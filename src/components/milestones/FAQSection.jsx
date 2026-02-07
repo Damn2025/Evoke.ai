@@ -75,7 +75,7 @@ const FAQItem = ({ item, isOpen, onClick, theme }) => {
   );
 };
 
-const FAQSection = ({ milestone, theme, setShowPrivacyPolicy }) => {
+const FAQSection = ({ milestone, theme }) => {
   const brandGradient = "bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393]";
   const textGradient = "text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]";
   
@@ -140,12 +140,12 @@ const FAQSection = ({ milestone, theme, setShowPrivacyPolicy }) => {
               if (index === 4) {
                 // Last word "Know" with gradient
                 return (
-                  <h2 
+                  <span 
                     key={index}
                     className="text-transparent bg-clip-text bg-gradient-to-r from-[#0eaac8] to-[#1dc393]"
                   >
                     {index > 0 ? ' ' : ''}{word}  {' '}
-                  </h2>
+                  </span>
                 );
               }
               return <span key={index}>{index > 0 ? ' ' : ''}{word}</span>;
@@ -242,7 +242,7 @@ const FAQSection = ({ milestone, theme, setShowPrivacyPolicy }) => {
 
       {/* Footer Section - Separate Fixed Section */}
       <div className="relative z-50 mt-20">
-        <Footer theme={theme} onPrivacyClick={() => setShowPrivacyPolicy(true)} />
+        <Footer theme={theme} />
       </div>
     </>
   );

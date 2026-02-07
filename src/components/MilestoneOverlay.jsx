@@ -8,7 +8,7 @@ import BlogSection from './milestones/BlogSection';
 import ContactSection from './milestones/ContactSection';
 import FAQSection from './milestones/FAQSection';
 
-const MilestoneOverlay = ({ theme, setShowPrivacyPolicy }) => {
+const MilestoneOverlay = ({ theme }) => {
   const renderSection = (milestone) => {
     switch (milestone.id) {
       case 'about':
@@ -26,7 +26,7 @@ const MilestoneOverlay = ({ theme, setShowPrivacyPolicy }) => {
       case 'contact':
         return <ContactSection milestone={milestone} theme={theme} />;
       case 'faq':
-        return <FAQSection milestone={milestone} theme={theme} setShowPrivacyPolicy={setShowPrivacyPolicy} />;
+        return <FAQSection milestone={milestone} theme={theme} />;
       default:
         return null;
     }

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import evokeLogo from '../assets/evoke.png';
 
 const PrivacyPolicy = ({ theme, onBack }) => {
+  const navigate = useNavigate();
+  const handleBack = onBack ?? (() => navigate('/'));
   const isDark = theme === 'dark';
 
   // Scroll to top when component mounts
@@ -15,7 +18,7 @@ const PrivacyPolicy = ({ theme, onBack }) => {
         {/* Header */}
         <div className="mb-8 sm:mb-12">
           <button
-            onClick={onBack}
+            onClick={handleBack}
             className={`mb-6 flex items-center gap-2 text-sm sm:text-base font-medium hover:opacity-70 transition-opacity ${
               isDark ? 'text-white/70 hover:text-white' : 'text-black/70 hover:text-black'
             }`}
