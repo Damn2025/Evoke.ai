@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Mail, Phone, ArrowUp } from 'lucide-react';
 import Navigation from './components/Navigation';
@@ -10,6 +10,18 @@ import './App.css';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
+  const [isHeroInView, setIsHeroInView] = useState(true);
+
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
 
   const jumpTo = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -21,13 +33,13 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={
-        <div className={`min-h-screen font-sans transition-colors duration-700 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+        <div className={`min-h-screen font-sans transition-colors duration-700 overflow-x-hidden ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
           <Navigation theme={theme} setTheme={setTheme} jumpTo={jumpTo} />
           <Hero theme={theme} jumpTo={jumpTo}/>
           <MilestoneOverlay theme={theme} />
 
-      {/* Floating Action Buttons - Mobile Only - Fixed to all sections */}
-      <div className=" fixed bottom-6 right-4 z-[300] flex flex-col gap-3">
+      {/* Floating Action Buttons - Scroll to Top at top, then contact buttons */}
+      <div className="fixed bottom-6 right-4 z-[300] flex flex-col-reverse gap-3">
         {/* WhatsApp Button */}
         <a
           href="https://wa.me/7986175240"
@@ -66,19 +78,30 @@ export default function App() {
           <Phone size={20} strokeWidth={2} />
         </a>
 
-        {/* Scroll to Top Button */}
-        <button
-          onClick={() => jumpTo('hero')}
-          className="w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393] hover:from-[#1dc393] hover:via-[#27bce2] hover:to-[#0eaac8] text-white"
-          aria-label="Scroll to top"
+        {/* Scroll to Top Button - at top of stack, smooth show/hide when past Hero */}
+        <div
+          className={`transition-all duration-500 ease-out ${
+            isHeroInView ? '-mb-[3.75rem] opacity-0' : 'opacity-100'
+          }`}
         >
-          <ArrowUp size={20} strokeWidth={2.5} />
-        </button>
+          <button
+            onClick={() => jumpTo('hero')}
+            className={`w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ease-out hover:scale-110 active:scale-95 bg-gradient-to-br from-[#0eaac8] via-[#27bce2] to-[#1dc393] hover:from-[#1dc393] hover:via-[#27bce2] hover:to-[#0eaac8] text-white origin-center ${
+              isHeroInView
+                ? 'scale-90 translate-y-1 pointer-events-none'
+                : 'scale-100 translate-y-0'
+            }`}
+            aria-label="Scroll to top"
+            aria-hidden={isHeroInView}
+          >
+            <ArrowUp size={20} strokeWidth={2.5} />
+          </button>
+        </div>
       </div>
         </div>
       } />
       <Route path="/Privacy-Policy" element={
-        <div className="min-h-screen font-sans transition-colors duration-700">
+        <div className="min-h-screen font-sans transition-colors duration-700 overflow-x-hidden">
           <PrivacyPolicy theme={theme} />
         </div>
       } />

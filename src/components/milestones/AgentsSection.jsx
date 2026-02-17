@@ -38,7 +38,7 @@ const AgentsSection = ({ milestone, theme }) => {
   const agentLinks = {
     'AEON': 'http://evokeai.in/aeon/',
     'NOVA': 'https://nova-message-crafter.netlify.app/',
-    'CIPHER': 'https://www.cyber.evokeai.info/',
+    'CIPHER': 'https://cyber-sec.evokeai.info/',
     'ORION': null // No link provided
   };
 
@@ -262,7 +262,7 @@ const AgentsSection = ({ milestone, theme }) => {
                     {index === 3 && (
                       <div className="mt-6">
                         <a
-                          href="https://www.cyber.evokeai.info/"
+                          href="https://cyber-sec.evokeai.info/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-block px-6 py-2 bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold text-lg rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"

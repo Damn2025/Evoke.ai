@@ -14,7 +14,7 @@ const Navigation = ({ theme, setTheme, jumpTo }) => {
   const agentLinks = {
     'AEON': 'http://evokeai.in/aeon/',
     'NOVA': 'https://nova-message-crafter.netlify.app/',
-    'CIPHER': 'https://www.cyber.evokeai.info/',
+    'CIPHER': 'https://cyber-sec.evokeai.info/',
     'ORION': null // No link - opens modal in section
   };
 
